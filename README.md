@@ -1,20 +1,20 @@
 # FacePayment
 
 ## Retail Lab POC Project
-Use Case 1: Face-based Identification for Payments
-Design Document
+#### Use Case 1: Face-based Identification for Payments
+#### Design Document
 
-### App Name:
+## App Name:
 FacePayment
 
-### Developers:
+## Developers:
 Immanuel Joseph Antony
 Russell Taylor
 
-### Technologies:
+## Technologies:
 This mobile app will be written using React Native. React Native is a cross-platform technology, so the app will run on both Android and iOS mobile phones. The app will use the Amazon AWS Rekognition API in order to register and verify faces.
 
-### Design:
+## Design:
 The project requirements in the Use Case Manual outline a basic application with two distinct flows and six distinct views. These views are illustrated in the following diagram:
 
 #### Face Verification Flow:
