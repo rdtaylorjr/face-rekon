@@ -1,8 +1,8 @@
 # FacePayment
 
 ## Retail Lab POC Project
-### Use Case 1: Face-based Identification for Payments
-### Design Document
+Use Case 1: Face-based Identification for Payments
+Design Document
 
 ### App Name:
 FacePayment
@@ -17,7 +17,7 @@ This mobile app will be written using React Native. React Native is a cross-plat
 ### Design:
 The project requirements in the Use Case Manual outline a basic application with two distinct flows and six distinct views. These views are illustrated in the following diagram:
 
-### Face Verification Flow:
+#### Face Verification Flow:
 
 #### View 1: Home Screen
 
@@ -31,7 +31,7 @@ Once the proceed button is clicked, a camera window will open to complete face v
 
 Once the face is detected the camera window will close and redirect to next screen which is the payment status screen. The payment status screen will display the status message (success/failure) and provide an a navigation button to return to the home screen (View 1).
 
-Face Registration Flow:
+#### Face Registration Flow:
 
 #### View 4: Admin Screen
 
