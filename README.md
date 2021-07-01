@@ -8,7 +8,7 @@ Design Document
 FacePayment
 
 ## Developers:
-Immanuel Joseph Antony
+Immanuel Joseph Antony\
 Russell Taylor
 
 ## Technologies:
