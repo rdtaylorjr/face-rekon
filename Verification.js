@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, TextInput, Image, ScrollView, TouchableHighlight } from 'react-native'
+import { StyleSheet, View, Text, TextInput, Image, ScrollView, TouchableHighlight, Alert } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import Amplify, { API } from 'aws-amplify'
 
@@ -40,7 +40,10 @@ class Verification extends React.Component {
     }
 
     verifyButtonHandler = () => {
-        if (this.state.capturedImage == '' || this.state.capturedImage == undefined || this.state.capturedImage == null) {
+        if (this.state.paymentAmount == '' || this.state.paymentAmount == undefined || this.state.paymentAmount == null) {
+            alert('Please Enter the Payment Amount')
+        } 
+        else if (this.state.capturedImage == '' || this.state.capturedImage == undefined || this.state.capturedImage == null) {
             alert('Please Capture the Image')
         } 
         else {
@@ -59,25 +62,34 @@ class Verification extends React.Component {
                 })
             }
             
-            API.post(apiName, path, init).then(response => {
+            API.post(apiName, path, init).then(res => {
+                alert(res.body)
+                const response = JSON.parse(res.body)
                 if (JSON.stringify(response.FaceMatches.length) > 0) {
-                    alert(response.FaceMatches[0].Face.ExternalImageId)
+                    Alert.alert('Payment Successful',
+                        'Payment Amount: $' + this.state.paymentAmount + '\n' +
+                        'Verified User: ' + response.FaceMatches[0].Face.ExternalImageId)
                 } 
                 else {
-                    alert('No Matches Found')
+                    Alert.alert('Payment Declined', 'Could Not Verify Face\nPlease Try Again')
                 }
             })
         }
     }
 
-  
-  
     render() {
         return (
             <View style={styles.MainContainer}>
                 <ScrollView>
-                    <Text style= {{ fontSize: 20, color: "#000", textAlign: "center", marginBottom: 15, marginTop: 10 }}>Verify Face</Text>
+                    <Text style= {{ fontSize: 20, color: "#000", textAlign: "center", marginBottom: 15, marginTop: 10 }}>Payments</Text>
                 
+                    <TextInput
+                        placeholder="Enter Payment Amount"
+                        onChangeText={PaymentAmount => this.setState({paymentAmount: PaymentAmount})}
+                        underlineColorAndroid='transparent'
+                        style={styles.TextInputStyleClass}
+                    />
+
                     {this.state.capturedImage !== "" && 
                         <View style={styles.imageholder} >
                             <Image source={{uri: this.state.capturedImage}} style={styles.previewImage} />
@@ -89,21 +101,45 @@ class Verification extends React.Component {
                     </TouchableHighlight>
 
                     <TouchableHighlight style={[styles.buttonContainer, styles.verifyButton]} onPress={this.verifyButtonHandler}>
-                        <Text style={styles.buttonText}>Verify</Text>
+                        <Text style={styles.buttonText}>Make Payment</Text>
                     </TouchableHighlight>
                 </ScrollView>
             </View>
         );
     }
+
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "white",
-        alignItems: "center",
-        justifyContent: "center"
+    MainContainer: {
+        marginTop: 60
     },
+    TextInputStyleClass: {
+        textAlign: "center",
+        marginBottom: 7,
+        height: 40,
+        borderWidth: 1,
+        margin: 10,
+        borderColor: "#D0D0D0",
+        borderRadius: 5
+    },
+    // inputContainer: {
+    //     borderBottomColor: '#F5FCFF',
+    //     backgroundColor: '#FFFFFF',
+    //     borderRadius: 30,
+    //     borderBottomWidth: 1,
+    //     width: 300,
+    //     height: 45,
+    //     marginBottom: 20,
+    //     flexDirection: "row",
+    //     alignItems: "center"
+    // },
+    // container: {
+    //     flex: 1,
+    //     backgroundColor: "white",
+    //     alignItems: "center",
+    //     justifyContent: "center"
+    // },
     buttonContainer: {
         height: 45,
         flexDirection: "row",
