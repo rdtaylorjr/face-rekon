@@ -18,6 +18,9 @@ class Verification extends React.Component {
 
     constructor(props) {
         super(props)
+
+        this.currencyInputHandler = this.currencyInputHandler.bind(this);
+
         this.state = {
             username: '',
             capturedImage: ''
@@ -62,36 +65,52 @@ class Verification extends React.Component {
                 })
             }
             
-            API.post(apiName, path, init).then(res => {
-                alert(res.body)
-                const response = JSON.parse(res.body)
-                if (JSON.stringify(response.FaceMatches.length) > 0) {
+            API.post(apiName, path, init).then(response => {
+                if (response.errorMessage) {
+                    throw response.errorMessage
+                }
+                const parsed = JSON.parse(response.body)
+                if (JSON.stringify(parsed.FaceMatches.length) > 0) {
                     Alert.alert('Payment Successful',
-                        'Payment Amount: $' + this.state.paymentAmount + '\n' +
-                        'Verified User: ' + response.FaceMatches[0].Face.ExternalImageId)
+                        'Payment Amount: ' + this.state.paymentAmount + '\n' +
+                        'Verified User: ' + parsed.FaceMatches[0].Face.ExternalImageId)
                 } 
                 else {
                     Alert.alert('Payment Declined', 'Could Not Verify Face\nPlease Try Again')
                 }
+            }).catch(error => {
+                Alert.alert('Payment Declined', error)
             })
+        }
+    }
+
+    currencyInputHandler = input => {
+        if (input == 0 || input == null || input == '') {
+            this.setState({ paymentAmount: '' })
+        }
+        else {
+            const number = input.replace(/[^0-9]/g, '')
+            const currency = "$" + (number / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            this.setState({ paymentAmount: currency})
         }
     }
 
     render() {
         return (
-            <View style={styles.MainContainer}>
+            <View style={styles.container}>
                 <ScrollView>
-                    <Text style= {{ fontSize: 20, color: "#000", textAlign: "center", marginBottom: 15, marginTop: 10 }}>Payments</Text>
+                    <Text style={styles.title}>Enter Payment Amount</Text>
                 
                     <TextInput
-                        placeholder="Enter Payment Amount"
-                        onChangeText={PaymentAmount => this.setState({paymentAmount: PaymentAmount})}
-                        underlineColorAndroid='transparent'
-                        style={styles.TextInputStyleClass}
+                        placeholder="$0.00"
+                        onChangeText={this.currencyInputHandler}
+                        value={this.state.paymentAmount}
+                        underlineColorAndroid="transparent"
+                        style={styles.textInput}
                     />
 
                     {this.state.capturedImage !== "" && 
-                        <View style={styles.imageholder} >
+                        <View style={styles.imageHolder} >
                             <Image source={{uri: this.state.capturedImage}} style={styles.previewImage} />
                         </View>
                     }
@@ -111,60 +130,50 @@ class Verification extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    MainContainer: {
+    container: {
         marginTop: 60
     },
-    TextInputStyleClass: {
+    title: {
+        fontSize: 20, 
+        color: "#000", 
+        textAlign: "center", 
+        marginBottom: 15, 
+        marginTop: 10
+    },
+    textInput: {
         textAlign: "center",
         marginBottom: 7,
         height: 40,
         borderWidth: 1,
-        margin: 10,
+        marginTop: 10,
         borderColor: "#D0D0D0",
-        borderRadius: 5
+        borderRadius: 5,
+        marginLeft: "5%",
+        width: "90%"
     },
-    // inputContainer: {
-    //     borderBottomColor: '#F5FCFF',
-    //     backgroundColor: '#FFFFFF',
-    //     borderRadius: 30,
-    //     borderBottomWidth: 1,
-    //     width: 300,
-    //     height: 45,
-    //     marginBottom: 20,
-    //     flexDirection: "row",
-    //     alignItems: "center"
-    // },
-    // container: {
-    //     flex: 1,
-    //     backgroundColor: "white",
-    //     alignItems: "center",
-    //     justifyContent: "center"
-    // },
     buttonContainer: {
         height: 45,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
         marginBottom: 20,
-        width: "80%",
         borderRadius: 30,
         marginTop: 20,
-        marginLeft: 10
+        marginLeft: "5%",
+        width: "90%"
     },
     buttonText: {
         color: "white",
         fontWeight: "bold"
     },
     captureButton: {
-        backgroundColor: "#337ab7",
-        width: 300
+        backgroundColor: "#337ab7"
     },
     verifyButton: {
         backgroundColor: "#C0C0C0",
-        width: 300,
         marginTop: 5
     },
-    imageholder: {
+    imageHolder: {
         borderWidth: 1,
         borderColor: "grey",
         backgroundColor: "#eee",

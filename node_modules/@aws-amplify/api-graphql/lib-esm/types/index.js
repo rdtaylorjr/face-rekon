@@ -1,0 +1,15 @@
+export var GRAPHQL_AUTH_MODE;
+(function (GRAPHQL_AUTH_MODE) {
+    GRAPHQL_AUTH_MODE["API_KEY"] = "API_KEY";
+    GRAPHQL_AUTH_MODE["AWS_IAM"] = "AWS_IAM";
+    GRAPHQL_AUTH_MODE["OPENID_CONNECT"] = "OPENID_CONNECT";
+    GRAPHQL_AUTH_MODE["AMAZON_COGNITO_USER_POOLS"] = "AMAZON_COGNITO_USER_POOLS";
+})(GRAPHQL_AUTH_MODE || (GRAPHQL_AUTH_MODE = {}));
+export var GraphQLAuthError;
+(function (GraphQLAuthError) {
+    GraphQLAuthError["NO_API_KEY"] = "No api-key configured";
+    GraphQLAuthError["NO_CURRENT_USER"] = "No current user";
+    GraphQLAuthError["NO_CREDENTIALS"] = "No credentials";
+    GraphQLAuthError["NO_FEDERATED_JWT"] = "No federated jwt";
+})(GraphQLAuthError || (GraphQLAuthError = {}));
+//# sourceMappingURL=index.js.map

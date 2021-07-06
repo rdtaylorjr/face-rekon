@@ -67,27 +67,31 @@ class Registration extends React.Component {
             }
            
             API.post(apiName, path, init).then(response => {
-                // alert("Successfully Registered") 
-                alert(JSON.stringify(response)) 
+                if (response.errorMessage) {
+                    throw response.errorMessage
+                }
+                Alert.alert('Registration Successful', JSON.stringify(response)) 
+            }).catch(error => {
+                Alert.alert('Error', error)
             })
         }
     }
 
     render() {
         return (
-            <View style={styles.MainContainer}>
+            <View style={styles.container}>
                 <ScrollView>
-                    <Text style= {{ fontSize: 20, color: "#000", textAlign: "center", marginBottom: 15, marginTop: 10 }}>Register Face</Text>
+                    <Text style={styles.title}>Register Face</Text>
                 
                     <TextInput
                         placeholder="Enter Username"
                         onChangeText={UserName => this.setState({username: UserName})}
                         underlineColorAndroid='transparent'
-                        style={styles.TextInputStyleClass}
+                        style={styles.textInput}
                     />
                     
                     {this.state.capturedImage !== "" && 
-                        <View style={styles.imageholder} >
+                        <View style={styles.imageHolder} >
                             <Image source={{uri: this.state.capturedImage}} style={styles.previewImage} />
                         </View>
                     }
@@ -103,32 +107,30 @@ class Registration extends React.Component {
             </View>
         )
     }
-    
+
 }
 
 const styles = StyleSheet.create({
-    MainContainer: {
+    container: {
         marginTop: 60
     },
-    TextInputStyleClass: {
+    title: {
+        fontSize: 20, 
+        color: "#000", 
+        textAlign: "center", 
+        marginBottom: 15, 
+        marginTop: 10
+    },
+    textInput: {
         textAlign: "center",
         marginBottom: 7,
         height: 40,
         borderWidth: 1,
-        margin: 10,
+        marginTop: 10,
         borderColor: "#D0D0D0",
-        borderRadius: 5
-    },
-    inputContainer: {
-        borderBottomColor: '#F5FCFF',
-        backgroundColor: '#FFFFFF',
-        borderRadius: 30,
-        borderBottomWidth: 1,
-        width: 300,
-        height: 45,
-        marginBottom: 20,
-        flexDirection: "row",
-        alignItems: "center"
+        borderRadius: 5,
+        marginLeft: "5%",
+        width: "90%"
     },
     buttonContainer: {
         height: 45,
@@ -136,30 +138,23 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginBottom: 20,
-        width: "80%",
         borderRadius: 30,
         marginTop: 20,
-        marginLeft: 10
+        marginLeft: "5%",
+        width: "90%"
     },
     buttonText: {
         color: "white",
         fontWeight: "bold"
     },
     captureButton: {
-        backgroundColor: '#337ab7',
-        width: 300
+        backgroundColor: "#337ab7"
     },
-    // horizontal: {
-    //     flexDirection: 'row',
-    //     justifyContent: 'space-around',
-    //     padding: 10
-    // },
     registerButton: {
         backgroundColor: "#C0C0C0",
-        width: 300,
         marginTop: 5
     },
-    imageholder: {
+    imageHolder: {
         borderWidth: 1,
         borderColor: "grey",
         backgroundColor: "#eee",
@@ -171,8 +166,8 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     previewImage: {
-        width: '100%',
-        height: '100%'
+        width: "100%",
+        height: "100%",
     }
 })
 
