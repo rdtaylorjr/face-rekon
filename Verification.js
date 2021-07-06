@@ -14,7 +14,7 @@ Amplify.configure({
     }
  })
 
-class Verification extends React.Component {
+export default class Verification extends React.Component {
 
     constructor(props) {
         super(props)
@@ -38,6 +38,7 @@ class Verification extends React.Component {
 
         if (!result.cancelled) {
             this.setState({ capturedImage: result.uri, base64String: result.base64 })
+            this.verifyButtonHandler
         }
 
     }
@@ -116,12 +117,12 @@ class Verification extends React.Component {
                     }
 
                     <TouchableHighlight style={[styles.buttonContainer, styles.captureButton]} onPress={this.captureImageButtonHandler}>
-                        <Text style={styles.buttonText}>Capture Image</Text>
-                    </TouchableHighlight>
-
-                    <TouchableHighlight style={[styles.buttonContainer, styles.verifyButton]} onPress={this.verifyButtonHandler}>
                         <Text style={styles.buttonText}>Make Payment</Text>
                     </TouchableHighlight>
+
+                    {/* <TouchableHighlight style={[styles.buttonContainer, styles.verifyButton]} onPress={this.verifyButtonHandler}>
+                        <Text style={styles.buttonText}>Make Payment</Text>
+                    </TouchableHighlight> */}
                 </ScrollView>
             </View>
         );
@@ -189,5 +190,3 @@ const styles = StyleSheet.create({
         height: "100%",
     }
 })
-
-export default Verification

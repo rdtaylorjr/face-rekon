@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, TextInput, Image, ScrollView, TouchableHighlight } from 'react-native'
+import { StyleSheet, View, Text, TextInput, Image, ScrollView, TouchableHighlight, Alert } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import Amplify, { API } from 'aws-amplify'
 
@@ -14,7 +14,7 @@ Amplify.configure({
     }
  })
 
-class Registration extends React.Component { 
+export default class Registration extends React.Component { 
 
     constructor(props) {
         super(props)
@@ -28,10 +28,6 @@ class Registration extends React.Component {
         await ImagePicker.requestCameraPermissionsAsync()
         
         let result = await ImagePicker.launchCameraAsync({
-            // mediaTypes: ImagePicker.MediaTypeOptions.All,
-            // allowsEditing: true,
-            // aspect: [4, 3],
-            // quality: 1,
             maxWidth: 800, 
             maxHeight: 600,
             base64: true
@@ -170,5 +166,3 @@ const styles = StyleSheet.create({
         height: "100%",
     }
 })
-
-export default Registration
