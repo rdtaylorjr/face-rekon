@@ -1,0 +1,25 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.15.5",
+    "@react-native-community/async-storage": "^1.12.1",
+    "@react-native-community/netinfo": "^6.0.0",
+    "aws-amplify": "^4.1.2",
+    "aws-amplify-react-native": "^5.0.2",
+    "expo": "~41.0.1",
+    "expo-image-picker": "~10.1.4",
+    "react": "^16.13.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0"
+  },
+  "private": true
+}

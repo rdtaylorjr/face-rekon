@@ -1,0 +1,15 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-facepayment-dev-215315-authRole",
+      "UnauthRoleArn": "arn:aws:iam::638205107134:role/amplify-facepayment-dev-215315-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::638205107134:role/amplify-facepayment-dev-215315-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-facepayment-dev-215315-deployment",
+      "UnauthRoleName": "amplify-facepayment-dev-215315-unauthRole",
+      "StackName": "amplify-facepayment-dev-215315",
+      "StackId": "arn:aws:cloudformation:us-east-2:638205107134:stack/amplify-facepayment-dev-215315/354e5600-dbb2-11eb-9a4c-0a72138cf7ca",
+      "AmplifyAppId": "d1lpeqvdnzl0bf"
+    }
+  }
+}
