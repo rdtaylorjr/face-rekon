@@ -13,7 +13,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -25,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "A cross-platform iOS and Android app with liveness detection and facial recognition. Written using React Native and AWS Rekognition",
+    "githubUrl": "https://github.com/rdtaylorjr/face-rekon.git"
   }
 }

@@ -16,7 +16,7 @@ export default class Confirmation extends React.Component {
         color="#337ab7"
         title="Payment Successful"
         price={amount}
-        info={['Verified User: ' + username, 'Thank you for using Face-Rekon']}
+        info={['Verified User: ' + username, 'Thank you for using Face-Rekon!']}
         button={{title:'Home'}}
         onButtonPress={() => this.props.navigation.navigate('Home')}
         />

@@ -26,12 +26,12 @@ export default class Payment extends React.Component {
   }
 
   validateInput = input => {
-    if (input == '' || input == '0' || input == 0 || input == null || input == undefined) {
+    input = input.replace(/[^0-9]/g, '')
+    if (input == '' || input == null || input == undefined || parseInt(input) == 0) {
       this.setState({ paymentAmount: '$0.00' })
     }
     else {
-      const number = input.replace(/[^0-9]/g, '')
-      const currency = "$" + (number / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      const currency = "$" + (input / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
       this.setState({ paymentAmount: currency })
     }
   }
@@ -41,7 +41,7 @@ export default class Payment extends React.Component {
       alert('Please Enter a Payment Amount')
     }
     else {
-      this.props.navigation.navigate('Detection', {
+      this.props.navigation.navigate('Verification', {
         paymentAmount: this.state.paymentAmount
       })
     }
