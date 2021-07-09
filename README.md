@@ -1,5 +1,9 @@
 # Face-Rekon
 
+Facial Recognition for Mobile Payments
+
+A cross-platform iOS and Android app with liveness detection and facial recognition. Written using React Native and AWS Rekognition
+
 ## Retail Lab POC Project
 Use Case 1: Face-based Identification for Payments\
 Design Document
