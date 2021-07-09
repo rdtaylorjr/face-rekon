@@ -55,7 +55,6 @@ var locale = {
     return n + ".";
   },
   weekStart: 1,
-  yearStart: 4,
   relativeTime: {
     future: '%s päästä',
     past: '%s sitten',

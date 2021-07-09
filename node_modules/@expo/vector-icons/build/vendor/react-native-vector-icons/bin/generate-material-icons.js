@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 
-const omit = require('lodash.omit');
-const lodashTemplate = require('lodash.template');
+const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 const yargs = require('yargs');
@@ -40,12 +39,12 @@ if (argv.template) {
   template = fs.readFileSync(argv.template, { encoding: 'utf8' });
 }
 
-let data = omit(argv, '_ $0 o output t template g glyphmap'.split(' '));
+let data = _.omit(argv, '_ $0 o output t template g glyphmap'.split(' '));
 const glyphMap = extractGlyphMapFromCodepoints(argv._[0]);
 
 let content = JSON.stringify(glyphMap, null, '  ');
 if (template) {
-  const compiled = lodashTemplate(template);
+  const compiled = _.template(template);
   data = data || {};
   data.glyphMap = content;
   content = compiled(data);

@@ -36,7 +36,6 @@ function relativeTimeWithMutation(number, withoutSuffix, key) {
 }
 
 function specialMutationForYears(number) {
-  /* istanbul ignore next line */
   switch (lastNumber(number)) {
     case 1:
     case 3:

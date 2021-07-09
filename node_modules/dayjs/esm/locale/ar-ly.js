@@ -11,9 +11,6 @@ var locale = {
   ordinal: function ordinal(n) {
     return n;
   },
-  meridiem: function meridiem(hour) {
-    return hour > 12 ? 'ص' : 'م';
-  },
   formats: {
     LT: 'HH:mm',
     LTS: 'HH:mm:ss',

@@ -1,5 +1,4 @@
-const lodashTemplate = require('lodash.template');
-const fromPairs = require('lodash.frompairs');
+const _ = require('lodash');
 const fs = require('fs');
 
 function extractGlyphMapFromCss(files, selectorPattern) {
@@ -39,7 +38,7 @@ function extractGlyphMapFromCss(files, selectorPattern) {
       const selectors = extractSelectorsFromRule(rule);
       return selectors.map(selector => [selector, glyph]);
     })
-    .reduce((acc, glyphs) => Object.assign(acc, fromPairs(glyphs)), {});
+    .reduce((acc, glyphs) => Object.assign(acc, _.fromPairs(glyphs)), {});
 }
 
 function escapeRegExp(str) {
@@ -53,7 +52,7 @@ function generateIconSetFromCss(cssFiles, selectorPrefix, template, data = {}) {
   );
   const content = JSON.stringify(glyphMap, null, '  ');
   if (template) {
-    return lodashTemplate(template)({ glyphMap: content, ...data });
+    return _.template(template)(Object.assign({ glyphMap: content }, data));
   }
   return content;
 }
