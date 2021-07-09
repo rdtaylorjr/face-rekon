@@ -1,4 +1,4 @@
-# FacePayment
+# Face-Rekon
 
 ## Retail Lab POC Project
 Use Case 1: Face-based Identification for Payments\
