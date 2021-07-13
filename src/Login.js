@@ -9,14 +9,14 @@ export default class Login extends React.Component {
       username: '',
       password: ''
     }
-    defaultAuth = {
+    this.defaultAuth = {
       username: 'Admin',
       password: 'Admin123'
     }
   }
 
   loginAuth = () => {
-    if (this.state.username === defaultAuth.username && this.state.password === defaultAuth.password) {
+    if (this.state.username === this.defaultAuth.username && this.state.password === this.defaultAuth.password) {
       this.props.navigation.navigate('Admin')
     }
     else {
