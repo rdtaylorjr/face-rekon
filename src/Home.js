@@ -41,18 +41,16 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#000",
     textAlign: "center",
-    marginTop: 25,
-    // textTransform: "uppercase"
+    marginTop: 25
   },
   button: {
     height: 45,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     width: "75%",
     borderRadius: 30,
-    marginTop: 25,
-    marginLeft: 5
+    marginTop: 25
   },
   blue: {
     backgroundColor: "#337ab7"
@@ -61,7 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#C0C0C0"
   },
   buttonText: {
-    color: 'white',
-    fontWeight: 'bold'
+    color: "white",
+    fontWeight: "bold"
   },
 })
