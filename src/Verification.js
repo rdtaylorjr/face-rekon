@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import * as FaceDetector from 'expo-face-detector'
 import { Camera } from 'expo-camera'
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, View, Alert } from 'react-native'
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
 import MaskedView from '@react-native-community/masked-view'
 import Amplify, { API } from 'aws-amplify'
@@ -245,14 +245,18 @@ export default function Verification({ navigation, route }) {
       if (JSON.stringify(parsed.FaceMatches.length) > 0) {
         navigation.navigate('Confirmation', {
           username: parsed.FaceMatches[0].Face.ExternalImageId,
-          amount: route.params.paymentAmount
+          amount: route.params.paymentAmount,
+          type: 'payment'
         })
       }
       else {
-        Alert.alert('Payment Authorization Failed', 'Could Not Verify Face\nPlease Try Again')
+        navigation.navigate('Confirmation', {
+          type: 'failed'
+        })
       }
     }).catch(error => {
-      Alert.alert('Payment Authorization Failed', error)
+      Alert.alert('Error', error)
+      navigation.navigate('Home')
     })
   }
 
@@ -262,7 +266,7 @@ export default function Verification({ navigation, route }) {
       verifyFace(photo)
     } 
     else {
-      navigation.navigate('Detection', {
+      navigation.navigate('Verification', {
         paymentAmount: route.params.paymentAmount
       })
     }
@@ -309,23 +313,33 @@ export default function Verification({ navigation, route }) {
         </Camera>
       </MaskedView>
       <View style={styles.instructionsContainer}>
-        <Text style={styles.instructions}>
-          {state.faceDetected === "no" &&
-            state.faceTooBig === "no" &&
-            instructionsText.initialPrompt}
+        {!state.processComplete &&
+          <Text style={styles.instructions}>
+            {state.faceDetected === "no" &&
+              state.faceTooBig === "no" &&
+              instructionsText.initialPrompt}
 
-          {state.faceTooBig === "yes" && instructionsText.tooClose}
+            {state.faceTooBig === "yes" && 
+              instructionsText.tooClose}
 
-          {state.faceDetected === "yes" &&
-            state.faceTooBig === "no" &&
-            instructionsText.performActions}
-        </Text>
-        <Text style={styles.action}>
-          {state.faceDetected === "yes" &&
-            state.faceTooBig === "no" &&
-            detections[state.detectionsList[state.currentDetectionIndex]]
-              .instruction}
-        </Text>
+            {state.faceDetected === "yes" &&
+              state.faceTooBig === "no" &&
+              instructionsText.performActions}
+          </Text>
+        }
+        {!state.processComplete &&
+          <Text style={styles.action}>
+            {state.faceDetected === "yes" &&
+              state.faceTooBig === "no" &&
+              detections[state.detectionsList[state.currentDetectionIndex]]
+                .instruction}
+          </Text>
+        }
+        {state.processComplete &&
+          <Text style={styles.processing}>
+            Processing payment...
+          </Text>
+        }
       </View>
     </View>
   )
@@ -367,5 +381,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     position: "absolute",
     top: 70
+  },
+  processing: {
+    fontSize: 24,
+    textAlign: "center",
+    fontWeight: "bold",
+    position: "absolute",
+    top: 25
   }
 })

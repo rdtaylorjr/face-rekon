@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native'
 
-export default class Payment extends React.Component {
+export default class Admin extends React.Component {
 
   constructor(props) {
     super(props)
@@ -9,28 +9,22 @@ export default class Payment extends React.Component {
     this.validateInput = this.validateInput.bind(this);
 
     this.state = {
-      paymentAmount: ''
+      username: ''
     }
   }
 
   validateInput = input => {
-    input = input.replace(/[^0-9]/g, '')
-    if (input == '' || input == null || input == undefined || parseInt(input) == 0) {
-      this.setState({ paymentAmount: '$0.00' })
-    }
-    else {
-      const currency = "$" + (input / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      this.setState({ paymentAmount: currency })
-    }
+    input = input.replace(/\s+/g, '')
+    this.setState({username: input})
   }
 
-  detectLiveness = () => {
-    if (this.state.paymentAmount == '' || this.state.paymentAmount == '$0' || this.state.paymentAmount == '$0.00' || this.state.paymentAmount == null || this.state.paymentAmount == undefined) {
-      alert('Please Enter a Payment Amount')
+  captureImage = () => {
+    if (this.state.username == '' || this.state.username == null || this.state.username == undefined) {
+      alert('Please Enter a Username')
     }
     else {
-      this.props.navigation.navigate('Verification', {
-        paymentAmount: this.state.paymentAmount
+      this.props.navigation.navigate('Registration', {
+        username: this.state.username
       })
     }
   }
@@ -38,18 +32,17 @@ export default class Payment extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Enter Payment Amount</Text>
+        <Text style={styles.title}>Register New Face</Text>
 
         <TextInput
-          placeholder="$0.00"
+          placeholder="Username"
           onChangeText={this.validateInput}
-          value={this.state.paymentAmount}
+          value={this.state.username}
           underlineColorAndroid="transparent"
-          keyboardType="numeric"
           style={styles.input}
         />
 
-        <TouchableHighlight style={styles.button} onPress={this.detectLiveness}>
+        <TouchableHighlight style={styles.button} onPress={this.captureImage}>
           <Text style={styles.buttonText}>Proceed</Text>
         </TouchableHighlight>
       </View>
