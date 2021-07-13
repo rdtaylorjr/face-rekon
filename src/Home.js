@@ -16,7 +16,7 @@ export default class Home extends React.Component {
             Make Payment
           </Text>
         </TouchableHighlight>
-        <TouchableHighlight style={[styles.button, styles.grey]} onPress={() => this.props.navigation.navigate('Login')}>
+        <TouchableHighlight style={[styles.button, styles.grey]} underlayColor="grey" onPress={() => this.props.navigation.navigate('Login')}>
           <Text style={styles.buttonText}>
             Register Face
           </Text>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     fontWeight: "600",
-    color: "#000",
+    color: "grey",
     textAlign: "center",
     marginTop: 25,
     textTransform: "uppercase"
@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textTransform: "uppercase",
-    fontSize: 16
+    // fontSize: 16
   }
 })

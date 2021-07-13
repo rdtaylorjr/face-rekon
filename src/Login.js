@@ -1,5 +1,5 @@
 import React from "react"
-import { StyleSheet, Text, View, TextInput, Image, TouchableHighlight, Alert } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Image, TouchableHighlight, Alert, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import logo from '../assets/icon.png'
 
 export default class Login extends React.Component {
@@ -9,14 +9,14 @@ export default class Login extends React.Component {
       username: '',
       password: ''
     }
-    defaultAuth = {
+    this.defaultAuth = {
       username: 'Admin',
       password: 'Admin123'
     }
   }
 
   loginAuth = () => {
-    if (this.state.username === defaultAuth.username && this.state.password === defaultAuth.password) {
+    if (this.state.username === this.defaultAuth.username && this.state.password === this.defaultAuth.password) {
       this.props.navigation.navigate('Admin')
     }
     else {
@@ -26,30 +26,32 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Image source={logo} style={styles.logo} />
-        <Text style={styles.title}>Admin Login</Text>
-        <TextInput
-          style={styles.input}
-          placeholder={'USERNAME'}
-          placeholderTextColor={'white'}
-          underlineColorAndroid='transparent'
-          onChangeText={username => this.setState({ username })}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder={'PASSWORD'}
-          placeholderTextColor={'white'}
-          underlineColorAndroid='transparent'
-          secureTextEntry
-          onChangeText={password => this.setState({ password })}
-        />
-        <View style={styles.buttonContainer}>
-          <TouchableHighlight style={styles.button} onPress={this.loginAuth}>
-            <Text style={styles.buttonText}>Login</Text>
-          </TouchableHighlight>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <Image source={logo} style={styles.logo} />
+          <Text style={styles.title}>Admin Login</Text>
+          <TextInput
+            style={styles.input}
+            placeholder={'USERNAME'}
+            placeholderTextColor={'white'}
+            underlineColorAndroid='transparent'
+            onChangeText={username => this.setState({ username })}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder={'PASSWORD'}
+            placeholderTextColor={'white'}
+            underlineColorAndroid='transparent'
+            secureTextEntry
+            onChangeText={password => this.setState({ password })}
+          />
+          <View style={styles.buttonContainer}>
+            <TouchableHighlight style={styles.button} underlayColor="grey" onPress={this.loginAuth}>
+              <Text style={styles.buttonText}>Login</Text>
+            </TouchableHighlight>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     )
   }
 }
@@ -66,8 +68,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     fontWeight: "600",
-    color: "black",
-    opacity: 0.5,
+    color: "grey",
     textAlign: "center",
     marginTop: 15,
     textTransform: "uppercase"
@@ -80,8 +81,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginTop: 15,
     borderColor: "#D0D0D0",
-    backgroundColor: "black",
-    opacity: 0.5,
+    backgroundColor: "grey",
     color: "white",
     borderRadius: 25,
     width: "81%"
@@ -103,6 +103,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textTransform: "uppercase",
-    fontSize: 16
+    // fontSize: 16
   }
 })

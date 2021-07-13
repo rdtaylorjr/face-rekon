@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Image, Text, TextInput, TouchableHighlight } from 'react-native'
+import { StyleSheet, View, Image, Text, TextInput, TouchableHighlight, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import logo from '../assets/icon.png'
 
 export default class Admin extends React.Component {
@@ -32,24 +32,26 @@ export default class Admin extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Image source={logo} style={styles.logo} />
-        <Text style={styles.title}>Register New Face</Text>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <Image source={logo} style={styles.logo} />
+          <Text style={styles.title}>Register New Face</Text>
 
-        <TextInput
-          placeholder="Username"
-          placeholderTextColor={'white'}
-          onChangeText={this.validateInput}
-          value={this.state.username}
-          underlineColorAndroid="transparent"
-          style={styles.input}
-        />
-        <View style={styles.buttonContainer}>
-          <TouchableHighlight style={styles.button} onPress={this.captureImage}>
-            <Text style={styles.buttonText}>Proceed</Text>
-          </TouchableHighlight>
+          <TextInput
+            placeholder="USERNAME"
+            placeholderTextColor={'white'}
+            onChangeText={this.validateInput}
+            value={this.state.username}
+            underlineColorAndroid="transparent"
+            style={styles.input}
+          />
+          <View style={styles.buttonContainer}>
+            <TouchableHighlight style={styles.button} underlayColor="grey" onPress={this.captureImage}>
+              <Text style={styles.buttonText}>Proceed</Text>
+            </TouchableHighlight>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     )
   }
 
@@ -79,8 +81,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginTop: 15,
     borderColor: "#D0D0D0",
-    backgroundColor: "black",
-    opacity: 0.5,
+    backgroundColor: "grey",
     color: "white",
     borderRadius: 25,
     width: "75%"
@@ -102,6 +103,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textTransform: "uppercase",
-    fontSize: 16
+    // fontSize: 16
   }
 })

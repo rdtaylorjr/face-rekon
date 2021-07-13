@@ -53,7 +53,7 @@ export default class Confirmation extends React.Component {
           </View>
         }
 
-        <TouchableHighlight style={styles.button} onPress={() => navigation.navigate('Home')}>
+        <TouchableHighlight style={styles.button} underlayColor="grey" onPress={() => navigation.navigate('Home')}>
           <Text style={styles.buttonText}>
             Home
           </Text>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: "#000",
+    color: "grey",
     textAlign: "center",
     marginTop: 25,
     textTransform: "uppercase"
@@ -112,6 +112,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textTransform: "uppercase",
-    fontSize: 16
+    // fontSize: 16
   }
 })

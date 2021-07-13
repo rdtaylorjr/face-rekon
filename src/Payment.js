@@ -53,7 +53,7 @@ export default class Payment extends React.Component {
             style={styles.input}
           />
           <View style={styles.buttonContainer}>
-            <TouchableHighlight style={styles.button} onPress={this.detectLiveness}>
+            <TouchableHighlight style={styles.button} underlayColor="grey" onPress={this.detectLiveness}>
               <Text style={styles.buttonText}>Proceed</Text>
             </TouchableHighlight>
           </View>
@@ -88,8 +88,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginTop: 15,
     borderColor: "#D0D0D0",
-    backgroundColor: "black",
-    opacity: 0.5,
+    backgroundColor: "grey",
     color: "white",
     borderRadius: 25,
     width: "80%"
@@ -111,6 +110,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textTransform: "uppercase",
-    fontSize: 16
+    // fontSize: 16
   }
 })
