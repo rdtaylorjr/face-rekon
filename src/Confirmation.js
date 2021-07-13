@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableHighlight, StyleSheet, Image } from 'react-native'
+import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import logo from '../assets/icon.png'
 
 export default class Confirmation extends React.Component {
@@ -53,7 +53,11 @@ export default class Confirmation extends React.Component {
           </View>
         }
 
-        <TouchableHighlight style={styles.button} underlayColor="grey" onPress={() => navigation.navigate('Home')}>
+        <TouchableHighlight 
+          style={styles.button} 
+          underlayColor="grey" 
+          onPress={() => navigation.navigate('Home')}
+        >
           <Text style={styles.buttonText}>
             Home
           </Text>
@@ -66,22 +70,22 @@ export default class Confirmation extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    marginTop: 80
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center"
   },
   logo: {
     width: 120,
     height: 120
   },
   title: {
-    fontSize: 20,
+    fontSize: 25,
     color: "grey",
     textAlign: "center",
-    marginTop: 25,
-    textTransform: "uppercase"
+    marginTop: 25
   },
   amount: {
-    fontSize: 25,
+    fontSize: 30,
     color: "#000",
     textAlign: "center",
     fontWeight: "bold",
@@ -90,13 +94,11 @@ const styles = StyleSheet.create({
   username: {
     color: "grey",
     textAlign: "center",
-    marginTop: 10,
-    textTransform: "uppercase"
+    marginTop: 10
   },
   message: {
     color: "grey",
-    textAlign: "center",
-    textTransform: "uppercase"
+    textAlign: "center"
   },
   button: {
     height: 45,
@@ -105,13 +107,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 10,
     marginTop: 20,
-    width: "75%",
-    backgroundColor: "#009688"
+    backgroundColor: "#009688",
+    width: "70%"
   },
   buttonText: {
     color: "white",
     fontWeight: "bold",
-    textTransform: "uppercase",
-    // fontSize: 16
+    textTransform: "uppercase"
   }
 })

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, TouchableHighlight, StyleSheet } from 'react-native'
+import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import logo from '../assets/icon.png'
 
 export default class Home extends React.Component {
@@ -11,12 +11,20 @@ export default class Home extends React.Component {
         <Text style={styles.title}>
           Face-Rekon
         </Text>
-        <TouchableHighlight style={[styles.button, styles.green]} onPress={() => this.props.navigation.navigate('Payment')}>
+        <TouchableHighlight 
+          style={[styles.button, styles.green]} 
+          underlayColor="grey" 
+          onPress={() => this.props.navigation.navigate('Payment')}
+        >
           <Text style={styles.buttonText}>
             Make Payment
           </Text>
         </TouchableHighlight>
-        <TouchableHighlight style={[styles.button, styles.grey]} underlayColor="grey" onPress={() => this.props.navigation.navigate('Login')}>
+        <TouchableHighlight 
+          style={[styles.button, styles.grey]} 
+          underlayColor="grey" 
+          onPress={() => this.props.navigation.navigate('Login')}
+        >
           <Text style={styles.buttonText}>
             Register Face
           </Text>
@@ -29,15 +37,16 @@ export default class Home extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    marginTop: 90
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center"
   },
   logo: {
     width: 120,
     height: 120
   },
   title: {
-    fontSize: 40,
+    fontSize: 35,
     fontWeight: "600",
     color: "grey",
     textAlign: "center",
@@ -49,7 +58,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    width: "78%",
+    width: "70%",
     borderRadius: 10,
     marginTop: 25
   },
@@ -62,7 +71,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontWeight: "bold",
-    textTransform: "uppercase",
-    // fontSize: 16
+    textTransform: "uppercase"
   }
 })

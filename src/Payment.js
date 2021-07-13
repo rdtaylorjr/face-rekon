@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Image, Text, TextInput, TouchableHighlight, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { Image, Keyboard, StyleSheet, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native'
 import logo from '../assets/icon.png'
 
 export default class Payment extends React.Component {
@@ -52,11 +52,13 @@ export default class Payment extends React.Component {
             keyboardType="numeric"
             style={styles.input}
           />
-          <View style={styles.buttonContainer}>
-            <TouchableHighlight style={styles.button} underlayColor="grey" onPress={this.detectLiveness}>
-              <Text style={styles.buttonText}>Proceed</Text>
-            </TouchableHighlight>
-          </View>
+          <TouchableHighlight 
+            style={styles.button} 
+            underlayColor="grey" 
+            onPress={this.detectLiveness}
+          >
+            <Text style={styles.buttonText}>Proceed</Text>
+          </TouchableHighlight>
         </View>
       </TouchableWithoutFeedback>
     )
@@ -66,36 +68,30 @@ export default class Payment extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    marginTop: 100
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center"
   },
   logo: {
     width: 120,
     height: 120
   },
   title: {
-    fontSize: 21,
+    fontSize: 25,
     color: "grey",
     textAlign: "center",
-    marginTop: 25,
-    textTransform: "uppercase"
+    marginTop: 25
   },
   input: {
-    textAlign: "right",
-    paddingRight: 40,
-    marginBottom: 7,
+    textAlign: "center",
     height: 45,
     borderWidth: 1,
-    marginTop: 15,
+    marginTop: 25,
     borderColor: "#D0D0D0",
     backgroundColor: "grey",
     color: "white",
     borderRadius: 25,
-    width: "80%"
-  },
-  buttonContainer: {
-    width: "80%",
-    paddingHorizontal: 40
+    width: "70%"
   },
   button: {
     height: 45,
@@ -103,13 +99,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    marginTop: 15,
-    backgroundColor: "#009688"
+    marginTop: 25,
+    backgroundColor: "#009688",
+    width: "70%"
   },
   buttonText: {
     color: "white",
     fontWeight: "bold",
-    textTransform: "uppercase",
-    // fontSize: 16
+    textTransform: "uppercase"
   }
 })

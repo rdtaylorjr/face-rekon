@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Image, Text, TextInput, TouchableHighlight, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { Image, Keyboard, StyleSheet, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native'
 import logo from '../assets/icon.png'
 
 export default class Admin extends React.Component {
@@ -38,18 +38,20 @@ export default class Admin extends React.Component {
           <Text style={styles.title}>Register New Face</Text>
 
           <TextInput
-            placeholder="USERNAME"
+            placeholder="Username"
             placeholderTextColor={'white'}
             onChangeText={this.validateInput}
             value={this.state.username}
             underlineColorAndroid="transparent"
             style={styles.input}
           />
-          <View style={styles.buttonContainer}>
-            <TouchableHighlight style={styles.button} underlayColor="grey" onPress={this.captureImage}>
-              <Text style={styles.buttonText}>Proceed</Text>
-            </TouchableHighlight>
-          </View>
+          <TouchableHighlight 
+            style={styles.button} 
+            underlayColor="grey" 
+            onPress={this.captureImage}
+          >
+            <Text style={styles.buttonText}>Proceed</Text>
+          </TouchableHighlight>
         </View>
       </TouchableWithoutFeedback>
     )
@@ -59,8 +61,9 @@ export default class Admin extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    marginTop: 100
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center"
   },
   logo: {
     width: 120,
@@ -70,25 +73,18 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "grey",
     textAlign: "center",
-    marginTop: 25,
-    textTransform: "uppercase"
+    marginTop: 25
   },
   input: {
-    textAlign: "left",
-    paddingLeft: 40,
-    marginBottom: 7,
+    textAlign: "center",
     height: 45,
     borderWidth: 1,
-    marginTop: 15,
+    marginTop: 25,
     borderColor: "#D0D0D0",
     backgroundColor: "grey",
     color: "white",
     borderRadius: 25,
-    width: "75%"
-  },
-  buttonContainer: {
-    width: "75%",
-    paddingHorizontal: 40
+    width: "70%"
   },
   button: {
     height: 45,
@@ -96,13 +92,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    marginTop: 15,
-    backgroundColor: "#009688"
+    marginTop: 25,
+    backgroundColor: "#009688",
+    width: "70%"
   },
   buttonText: {
     color: "white",
     fontWeight: "bold",
-    textTransform: "uppercase",
-    // fontSize: 16
+    textTransform: "uppercase"
   }
 })

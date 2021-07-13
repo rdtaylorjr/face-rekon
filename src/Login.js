@@ -1,5 +1,5 @@
 import React from "react"
-import { StyleSheet, Text, View, TextInput, Image, TouchableHighlight, Alert, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { Alert, Image, Keyboard, StyleSheet, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native'
 import logo from '../assets/icon.png'
 
 export default class Login extends React.Component {
@@ -32,24 +32,26 @@ export default class Login extends React.Component {
           <Text style={styles.title}>Admin Login</Text>
           <TextInput
             style={styles.input}
-            placeholder={'USERNAME'}
+            placeholder={'Username'}
             placeholderTextColor={'white'}
             underlineColorAndroid='transparent'
             onChangeText={username => this.setState({ username })}
           />
           <TextInput
             style={styles.input}
-            placeholder={'PASSWORD'}
+            placeholder={'Password'}
             placeholderTextColor={'white'}
             underlineColorAndroid='transparent'
             secureTextEntry
             onChangeText={password => this.setState({ password })}
           />
-          <View style={styles.buttonContainer}>
-            <TouchableHighlight style={styles.button} underlayColor="grey" onPress={this.loginAuth}>
-              <Text style={styles.buttonText}>Login</Text>
-            </TouchableHighlight>
-          </View>
+          <TouchableHighlight 
+            style={styles.button} 
+            underlayColor="grey" 
+            onPress={this.loginAuth}
+          >
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableHighlight>
         </View>
       </TouchableWithoutFeedback>
     )
@@ -58,25 +60,25 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    marginTop: 65
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center"
   },
   logo: {
     width: 120,
     height: 120
   },
   title: {
-    fontSize: 40,
+    fontSize: 35,
     fontWeight: "600",
     color: "grey",
     textAlign: "center",
-    marginTop: 15,
+    marginTop: 25,
+    marginBottom: 5,
     textTransform: "uppercase"
   },
   input: {
-    textAlign: "left",
-    paddingLeft: 40,
-    marginBottom: 7,
+    textAlign: "center",
     height: 45,
     borderWidth: 1,
     marginTop: 15,
@@ -84,11 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: "grey",
     color: "white",
     borderRadius: 25,
-    width: "81%"
-  },
-  buttonContainer: {
-    width: "81%",
-    paddingHorizontal: 40
+    width: "70%"
   },
   button: {
     height: 45,
@@ -96,13 +94,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    marginTop: 15,
-    backgroundColor: "#009688"
+    marginTop: 20,
+    backgroundColor: "#009688",
+    width: "70%"
   },
   buttonText: {
     color: "white",
     fontWeight: "bold",
-    textTransform: "uppercase",
-    // fontSize: 16
+    textTransform: "uppercase"
   }
 })
