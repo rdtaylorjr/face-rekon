@@ -186,7 +186,7 @@ export default function Registration({ navigation, route }) {
   }, [state.processComplete])
 
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>
+    return <Text style={{textAlign: "center", marginTop: 100}}>No access to camera</Text>
   }
 
   return (

@@ -74,10 +74,11 @@ const styles = StyleSheet.create({
     height: 120
   },
   title: {
-    fontSize: 25,
+    fontSize: 20,
     color: "#000",
     textAlign: "center",
-    marginTop: 25
+    marginTop: 25,
+    textTransform: "uppercase"
   },
   amount: {
     fontSize: 25,
@@ -89,24 +90,28 @@ const styles = StyleSheet.create({
   username: {
     color: "grey",
     textAlign: "center",
-    marginTop: 10
+    marginTop: 10,
+    textTransform: "uppercase"
   },
   message: {
     color: "grey",
-    textAlign: "center"
+    textAlign: "center",
+    textTransform: "uppercase"
   },
   button: {
     height: 45,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 30,
+    borderRadius: 10,
     marginTop: 20,
     width: "75%",
-    backgroundColor: "#337ab7"
+    backgroundColor: "#009688"
   },
   buttonText: {
     color: "white",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    fontSize: 16
   }
 })

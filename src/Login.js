@@ -31,20 +31,24 @@ export default class Login extends React.Component {
         <Text style={styles.title}>Admin Login</Text>
         <TextInput
           style={styles.input}
-          placeholder={'Username'}
+          placeholder={'USERNAME'}
+          placeholderTextColor={'white'}
           underlineColorAndroid='transparent'
           onChangeText={username => this.setState({ username })}
         />
         <TextInput
           style={styles.input}
-          placeholder={'Password'}
+          placeholder={'PASSWORD'}
+          placeholderTextColor={'white'}
           underlineColorAndroid='transparent'
           secureTextEntry
           onChangeText={password => this.setState({ password })}
         />
-        <TouchableHighlight style={styles.button} onPress={this.loginAuth}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableHighlight>
+        <View style={styles.buttonContainer}>
+          <TouchableHighlight style={styles.button} onPress={this.loginAuth}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     )
   }
@@ -53,42 +57,52 @@ export default class Login extends React.Component {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    marginTop: 70
+    marginTop: 65
   },
   logo: {
     width: 120,
     height: 120
   },
   title: {
-    fontSize: 25,
-    color: "#000",
+    fontSize: 40,
+    fontWeight: "600",
+    color: "black",
+    opacity: 0.5,
     textAlign: "center",
-    marginTop: 25,
-    marginBottom: 10
+    marginTop: 15,
+    textTransform: "uppercase"
   },
   input: {
-    textAlign: "center",
+    textAlign: "left",
+    paddingLeft: 40,
     marginBottom: 7,
     height: 45,
     borderWidth: 1,
-    marginTop: 10,
+    marginTop: 15,
     borderColor: "#D0D0D0",
-    backgroundColor: "white",
-    borderRadius: 5,
-    width: "75%"
+    backgroundColor: "black",
+    opacity: 0.5,
+    color: "white",
+    borderRadius: 25,
+    width: "81%"
+  },
+  buttonContainer: {
+    width: "81%",
+    paddingHorizontal: 40
   },
   button: {
     height: 45,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 30,
-    marginTop: 10,
-    width: "75%",
-    backgroundColor: "#337ab7"
+    borderRadius: 10,
+    marginTop: 15,
+    backgroundColor: "#009688"
   },
   buttonText: {
     color: "white",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    fontSize: 16
   }
 })

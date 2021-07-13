@@ -279,7 +279,7 @@ export default function Verification({ navigation, route }) {
   }, [state.processComplete])
 
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>
+    return <Text style={{textAlign: "center", marginTop: 100}}>No access to camera</Text>
   }
 
   return (
@@ -307,7 +307,7 @@ export default function Verification({ navigation, route }) {
             width={5}
             backgroundWidth={7}
             fill={state.progressFill}
-            tintColor="#337ab7"
+            tintColor="#009688"
             backgroundColor="#e8e8e8"
           />
         </Camera>

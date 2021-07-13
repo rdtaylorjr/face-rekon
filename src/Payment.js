@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native'
+import { StyleSheet, View, Image, Text, TextInput, TouchableHighlight, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import logo from '../assets/icon.png'
 
 export default class Payment extends React.Component {
 
@@ -37,22 +38,27 @@ export default class Payment extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Enter Payment Amount</Text>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <Image source={logo} style={styles.logo} />
+          <Text style={styles.title}>Enter Payment Amount</Text>
 
-        <TextInput
-          placeholder="$0.00"
-          onChangeText={this.validateInput}
-          value={this.state.paymentAmount}
-          underlineColorAndroid="transparent"
-          keyboardType="numeric"
-          style={styles.input}
-        />
-
-        <TouchableHighlight style={styles.button} onPress={this.detectLiveness}>
-          <Text style={styles.buttonText}>Proceed</Text>
-        </TouchableHighlight>
-      </View>
+          <TextInput
+            placeholder="$0.00"
+            placeholderTextColor={'white'}
+            onChangeText={this.validateInput}
+            value={this.state.paymentAmount}
+            underlineColorAndroid="transparent"
+            keyboardType="numeric"
+            style={styles.input}
+          />
+          <View style={styles.buttonContainer}>
+            <TouchableHighlight style={styles.button} onPress={this.detectLiveness}>
+              <Text style={styles.buttonText}>Proceed</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
     )
   }
 
@@ -68,34 +74,43 @@ const styles = StyleSheet.create({
     height: 120
   },
   title: {
-    fontSize: 25,
-    color: "#000",
+    fontSize: 21,
+    color: "grey",
     textAlign: "center",
-    marginTop: 25
+    marginTop: 25,
+    textTransform: "uppercase"
   },
   input: {
-    textAlign: "center",
+    textAlign: "right",
+    paddingRight: 40,
     marginBottom: 7,
     height: 45,
     borderWidth: 1,
-    marginTop: 25,
+    marginTop: 15,
     borderColor: "#D0D0D0",
-    backgroundColor: "white",
-    borderRadius: 5,
-    width: "75%"
+    backgroundColor: "black",
+    opacity: 0.5,
+    color: "white",
+    borderRadius: 25,
+    width: "80%"
+  },
+  buttonContainer: {
+    width: "80%",
+    paddingHorizontal: 40
   },
   button: {
     height: 45,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 30,
-    marginTop: 20,
-    width: "75%",
-    backgroundColor: "#337ab7"
+    borderRadius: 10,
+    marginTop: 15,
+    backgroundColor: "#009688"
   },
   buttonText: {
     color: "white",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    fontSize: 16
   }
 })

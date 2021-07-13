@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native'
+import { StyleSheet, View, Image, Text, TextInput, TouchableHighlight } from 'react-native'
+import logo from '../assets/icon.png'
 
 export default class Admin extends React.Component {
 
@@ -32,19 +33,22 @@ export default class Admin extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Image source={logo} style={styles.logo} />
         <Text style={styles.title}>Register New Face</Text>
 
         <TextInput
           placeholder="Username"
+          placeholderTextColor={'white'}
           onChangeText={this.validateInput}
           value={this.state.username}
           underlineColorAndroid="transparent"
           style={styles.input}
         />
-
-        <TouchableHighlight style={styles.button} onPress={this.captureImage}>
-          <Text style={styles.buttonText}>Proceed</Text>
-        </TouchableHighlight>
+        <View style={styles.buttonContainer}>
+          <TouchableHighlight style={styles.button} onPress={this.captureImage}>
+            <Text style={styles.buttonText}>Proceed</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     )
   }
@@ -62,33 +66,42 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    color: "#000",
+    color: "grey",
     textAlign: "center",
-    marginTop: 25
+    marginTop: 25,
+    textTransform: "uppercase"
   },
   input: {
-    textAlign: "center",
+    textAlign: "left",
+    paddingLeft: 40,
     marginBottom: 7,
     height: 45,
     borderWidth: 1,
-    marginTop: 25,
+    marginTop: 15,
     borderColor: "#D0D0D0",
-    backgroundColor: "white",
-    borderRadius: 5,
+    backgroundColor: "black",
+    opacity: 0.5,
+    color: "white",
+    borderRadius: 25,
     width: "75%"
+  },
+  buttonContainer: {
+    width: "75%",
+    paddingHorizontal: 40
   },
   button: {
     height: 45,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 30,
-    marginTop: 20,
-    width: "75%",
-    backgroundColor: "#337ab7"
+    borderRadius: 10,
+    marginTop: 15,
+    backgroundColor: "#009688"
   },
   buttonText: {
     color: "white",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    fontSize: 16
   }
 })
