@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, TouchableHighlight, StyleSheet } from 'react-native'
+import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import logo from '../assets/icon.png'
 
 export default class Home extends React.Component {
@@ -18,7 +18,7 @@ export default class Home extends React.Component {
         </TouchableHighlight>
         <TouchableHighlight style={[styles.button, styles.grey]} onPress={() => this.props.navigation.navigate('Login')}>
           <Text style={styles.buttonText}>
-            Register Face (Admin Only)
+            Register Face
           </Text>
         </TouchableHighlight>
       </View>

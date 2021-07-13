@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import * as FaceDetector from 'expo-face-detector'
 import { Camera } from 'expo-camera'
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { Alert, Dimensions, StyleSheet, Text, View } from 'react-native'
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
 import MaskedView from '@react-native-community/masked-view'
 import Amplify, { API } from 'aws-amplify'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native'
+import { Keyboard, StyleSheet, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native'
 
 export default class Payment extends React.Component {
 
@@ -37,22 +37,24 @@ export default class Payment extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Enter Payment Amount</Text>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Enter Payment Amount</Text>
 
-        <TextInput
-          placeholder="$0.00"
-          onChangeText={this.validateInput}
-          value={this.state.paymentAmount}
-          underlineColorAndroid="transparent"
-          keyboardType="numeric"
-          style={styles.input}
-        />
+          <TextInput
+            placeholder="$0.00"
+            onChangeText={this.validateInput}
+            value={this.state.paymentAmount}
+            underlineColorAndroid="transparent"
+            keyboardType="numeric"
+            style={styles.input}
+          />
 
-        <TouchableHighlight style={styles.button} onPress={this.detectLiveness}>
-          <Text style={styles.buttonText}>Proceed</Text>
-        </TouchableHighlight>
-      </View>
+          <TouchableHighlight style={styles.button} onPress={this.detectLiveness}>
+            <Text style={styles.buttonText}>Proceed</Text>
+          </TouchableHighlight>
+        </View>
+      </TouchableWithoutFeedback>
     )
   }
 

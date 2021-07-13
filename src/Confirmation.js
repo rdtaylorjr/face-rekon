@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableHighlight, StyleSheet, Image } from 'react-native'
+import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import logo from '../assets/icon.png'
 
 export default class Confirmation extends React.Component {

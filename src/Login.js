@@ -1,5 +1,5 @@
 import React from "react"
-import { StyleSheet, Text, View, TextInput, Image, TouchableHighlight, Alert } from 'react-native'
+import { Alert, Image, Keyboard, StyleSheet, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native'
 import logo from '../assets/icon.png'
 
 export default class Login extends React.Component {
@@ -26,26 +26,28 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Image source={logo} style={styles.logo} />
-        <Text style={styles.title}>Admin Login</Text>
-        <TextInput
-          style={styles.input}
-          placeholder={'Username'}
-          underlineColorAndroid='transparent'
-          onChangeText={username => this.setState({ username })}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder={'Password'}
-          underlineColorAndroid='transparent'
-          secureTextEntry
-          onChangeText={password => this.setState({ password })}
-        />
-        <TouchableHighlight style={styles.button} onPress={this.loginAuth}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableHighlight>
-      </View>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <Image source={logo} style={styles.logo} />
+          <Text style={styles.title}>Admin Login</Text>
+          <TextInput
+            style={styles.input}
+            placeholder={'Username'}
+            underlineColorAndroid='transparent'
+            onChangeText={username => this.setState({ username })}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder={'Password'}
+            underlineColorAndroid='transparent'
+            secureTextEntry
+            onChangeText={password => this.setState({ password })}
+          />
+          <TouchableHighlight style={styles.button} onPress={this.loginAuth}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableHighlight>
+        </View>
+      </TouchableWithoutFeedback>  
     )
   }
 }

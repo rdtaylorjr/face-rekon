@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native'
+import { Keyboard, StyleSheet, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native'
 
 export default class Admin extends React.Component {
 
@@ -31,21 +31,23 @@ export default class Admin extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Register New Face</Text>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Register New Face</Text>
 
-        <TextInput
-          placeholder="Username"
-          onChangeText={this.validateInput}
-          value={this.state.username}
-          underlineColorAndroid="transparent"
-          style={styles.input}
-        />
+          <TextInput
+            placeholder="Username"
+            onChangeText={this.validateInput}
+            value={this.state.username}
+            underlineColorAndroid="transparent"
+            style={styles.input}
+          />
 
-        <TouchableHighlight style={styles.button} onPress={this.captureImage}>
-          <Text style={styles.buttonText}>Proceed</Text>
-        </TouchableHighlight>
-      </View>
+          <TouchableHighlight style={styles.button} onPress={this.captureImage}>
+            <Text style={styles.buttonText}>Proceed</Text>
+          </TouchableHighlight>
+        </View>
+      </TouchableWithoutFeedback>
     )
   }
 
