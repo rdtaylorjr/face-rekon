@@ -2,7 +2,7 @@
 
 Facial Recognition for Mobile Payments
 
-A cross-platform iOS and Android app with liveness detection and facial recognition. Written using React Native and AWS Rekognition
+A cross-platform iOS and Android app with liveness detection and facial recognition for TCS Paceport Retail Applications. Written using React Native and AWS Rekognition
 
 ## Retail Lab POC Project
 Use Case 1: Face-based Identification for Payments\
