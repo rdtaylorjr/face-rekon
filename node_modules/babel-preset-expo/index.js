@@ -31,6 +31,16 @@ module.exports = function(api, options = {}) {
         // Reference: https://github.com/expo/expo/pull/4685#discussion_r307143920
         require('metro-react-native-babel-preset'),
         {
+          // Defaults to undefined, set to something truthy to disable `@babel/plugin-transform-react-jsx-self` and `@babel/plugin-transform-react-jsx-source`.
+          withDevTools: platformOptions.withDevTools,
+          // Defaults to undefined, set to `true` to disable `@babel/plugin-transform-flow-strip-types`
+          disableFlowStripTypesTransform: platformOptions.disableFlowStripTypesTransform,
+          // Defaults to undefined, set to `false` to disable `@babel/plugin-transform-runtime`
+          enableBabelRuntime: platformOptions.enableBabelRuntime,
+          // Defaults to `'default'`, can also use `'hermes-canary'`
+          unstable_transformProfile: platformOptions.unstable_transformProfile,
+          // Set true to disable `@babel/plugin-transform-react-jsx`
+          useTransformReactJsxExperimental: platformOptions.useTransformReactJsxExperimental,
           disableImportExportTransform: platformOptions.disableImportExportTransform,
           lazyImportExportTransform:
             lazyImportsOption === true
@@ -104,8 +114,11 @@ function getBundler(caller) {
     if (name === 'metro') {
       // This is a hack to determine if metro is being used.
       return 'metro';
+    } else if (name === 'next-babel-turbo-loader') {
+      // NextJS 11
+      return 'webpack';
     } else if (name === 'babel-loader') {
-      // This won't work in all cases as tools like Next.js could change the name of their loader.
+      // expo/webpack-config, gatsby, storybook, and next.js <10
       return 'webpack';
     }
   }

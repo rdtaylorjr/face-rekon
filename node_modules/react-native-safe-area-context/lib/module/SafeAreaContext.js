@@ -4,7 +4,9 @@ import * as React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import NativeSafeAreaProvider from './NativeSafeAreaProvider';
 export const SafeAreaInsetsContext = React.createContext(null);
+SafeAreaInsetsContext.displayName = 'SafeAreaInsetsContext';
 export const SafeAreaFrameContext = React.createContext(null);
+SafeAreaFrameContext.displayName = 'SafeAreaFrameContext';
 export function SafeAreaProvider({
   children,
   initialMetrics,

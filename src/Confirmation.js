@@ -19,13 +19,22 @@ export default class Confirmation extends React.Component {
             <Text style={styles.title}>
               Payment Successful
             </Text>
+
             <Text style={styles.amount}>
-              {route.params.amount}
+              {route.params.paymentAmount}
             </Text>
-            <Text style={styles.username}>
+
+            <View style={styles.row}>
+              <Image
+                style={styles.image}
+                source={{uri: `data:image/png;base64,${route.params.paymentMethod.image}`}}
+              />
+              <Text style={styles.small}>{route.params.paymentMethod.label}</Text>
+            </View>
+            <Text style={styles.small}>
               Verified user: {route.params.username}
             </Text>
-            <Text style={styles.message}>
+            <Text style={styles.small}>
               Thank you for using Face-Rekon!
             </Text>
           </View>
@@ -36,7 +45,7 @@ export default class Confirmation extends React.Component {
             <Text style={styles.title}>
               Registration Successful
             </Text>
-            <Text style={styles.username}>
+            <Text style={styles.small}>
               Registered user: {route.params.username}
             </Text>
           </View>
@@ -47,8 +56,30 @@ export default class Confirmation extends React.Component {
             <Text style={styles.title}>
               Payment Failed
             </Text>
-            <Text style={styles.username}>
+            <Text style={styles.small}>
               Could not verify user. Please try again.
+            </Text>
+          </View>
+        }
+
+        {route.params.type == 'declined' &&
+          <View>
+            <Text style={styles.title}>
+              Payment Declined
+            </Text>
+
+            <View style={styles.row}>
+              <Image
+                style={styles.image}
+                source={{uri: `data:image/png;base64,${route.params.paymentMethod.image}`}}
+              />
+              <Text style={styles.small}>{route.params.paymentMethod.label}</Text>
+            </View>
+            <Text style={styles.small}>
+              Could not process payment.
+            </Text>
+            <Text style={styles.small}>
+              Please try again.
             </Text>
           </View>
         }
@@ -82,23 +113,30 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "grey",
     textAlign: "center",
-    marginTop: 25
+    marginTop: 25,
+    marginBottom: 10
   },
   amount: {
     fontSize: 30,
     color: "#000",
     textAlign: "center",
     fontWeight: "bold",
-    marginTop: 10
+    marginBottom: 10
   },
-  username: {
-    color: "grey",
-    textAlign: "center",
-    marginTop: 10
-  },
-  message: {
+  small: {
     color: "grey",
     textAlign: "center"
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    textAlign: "center",
+    justifyContent: "center"
+  },
+  image: {
+    width: 26,
+    height: 20,
+    marginRight: 5
   },
   button: {
     height: 45,

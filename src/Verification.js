@@ -243,11 +243,18 @@ export default function Verification({ navigation, route }) {
       }
       const parsed = JSON.parse(response.body)
       if (JSON.stringify(parsed.FaceMatches.length) > 0) {
-        navigation.navigate('Confirmation', {
+        // navigation.navigate('Confirmation', {
+          alert(
+            JSON.stringify(route.params.paymentAmount) + "\n" + 
+            JSON.stringify(route.params.paymentMethod)
+          )
+        navigation.navigate('Processing', {
+          paymentAmount: route.params.paymentAmount,
+          paymentMethod: route.params.paymentMethod,
           username: parsed.FaceMatches[0].Face.ExternalImageId,
-          amount: route.params.paymentAmount,
           type: 'payment'
         })
+        // setDisplay(true)
       }
       else {
         navigation.navigate('Confirmation', {
@@ -267,7 +274,8 @@ export default function Verification({ navigation, route }) {
     } 
     else {
       navigation.navigate('Verification', {
-        paymentAmount: route.params.paymentAmount
+        paymentAmount: route.params.paymentAmount,
+        paymentMethod: route.params.paymentMethod
       })
     }
   }

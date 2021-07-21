@@ -26,8 +26,10 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 const SafeAreaInsetsContext = React.createContext(null);
 exports.SafeAreaInsetsContext = SafeAreaInsetsContext;
+SafeAreaInsetsContext.displayName = 'SafeAreaInsetsContext';
 const SafeAreaFrameContext = React.createContext(null);
 exports.SafeAreaFrameContext = SafeAreaFrameContext;
+SafeAreaFrameContext.displayName = 'SafeAreaFrameContext';
 
 function SafeAreaProvider({
   children,

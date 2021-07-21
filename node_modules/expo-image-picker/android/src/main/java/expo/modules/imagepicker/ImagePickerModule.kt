@@ -20,27 +20,27 @@ import expo.modules.imagepicker.fileproviders.CacheFileProvider
 import expo.modules.imagepicker.fileproviders.CropFileProvider
 import expo.modules.imagepicker.tasks.ImageResultTask
 import expo.modules.imagepicker.tasks.VideoResultTask
+import expo.modules.interfaces.imageloader.ImageLoaderInterface
+import expo.modules.interfaces.permissions.Permissions
+import expo.modules.interfaces.permissions.PermissionsResponse
+import expo.modules.interfaces.permissions.PermissionsResponseListener
+import expo.modules.interfaces.permissions.PermissionsStatus
 import org.unimodules.core.ExportedModule
 import org.unimodules.core.ModuleRegistry
+import org.unimodules.core.ModuleRegistryDelegate
 import org.unimodules.core.Promise
 import org.unimodules.core.interfaces.ActivityEventListener
 import org.unimodules.core.interfaces.ActivityProvider
 import org.unimodules.core.interfaces.ExpoMethod
 import org.unimodules.core.interfaces.LifecycleEventListener
-import org.unimodules.core.interfaces.services.EventEmitter
 import org.unimodules.core.interfaces.services.UIManager
 import org.unimodules.core.utilities.FileUtilities.generateOutputPath
-import org.unimodules.interfaces.imageloader.ImageLoader
-import org.unimodules.interfaces.permissions.Permissions
-import org.unimodules.interfaces.permissions.PermissionsResponse
-import org.unimodules.interfaces.permissions.PermissionsResponseListener
-import org.unimodules.interfaces.permissions.PermissionsStatus
 import java.io.IOException
 import java.lang.ref.WeakReference
 
 class ImagePickerModule(
   private val mContext: Context,
-  val moduleRegistryPropertyDelegate: ModuleRegistryPropertyDelegate = ModuleRegistryPropertyDelegate(),
+  private val moduleRegistryDelegate: ModuleRegistryDelegate = ModuleRegistryDelegate(),
   private val pickerResultStore: PickerResultsStore = PickerResultsStore(mContext)
 ) : ExportedModule(mContext), ActivityEventListener, LifecycleEventListener {
 
@@ -55,10 +55,9 @@ class ImagePickerModule(
    */
   private var mWasDestroyed = false
 
-  private val mImageLoader: ImageLoader by moduleRegistry()
+  private val mImageLoader: ImageLoaderInterface by moduleRegistry()
   private val mUIManager: UIManager by moduleRegistry()
   private val mPermissions: Permissions by moduleRegistry()
-  private val mEventEmitter: EventEmitter by moduleRegistry()
   private val mActivityProvider: ActivityProvider by moduleRegistry()
 
   private lateinit var _experienceActivity: WeakReference<Activity>
@@ -72,8 +71,10 @@ class ImagePickerModule(
       return _experienceActivity.get()
     }
 
+  private inline fun <reified T> moduleRegistry() = moduleRegistryDelegate.getFromModuleRegistry<T>()
+
   override fun onCreate(moduleRegistry: ModuleRegistry) {
-    moduleRegistryPropertyDelegate.onCreate(moduleRegistry)
+    moduleRegistryDelegate.onCreate(moduleRegistry)
     mUIManager.registerLifecycleEventListener(this)
   }
 
@@ -82,13 +83,13 @@ class ImagePickerModule(
   //region expo methods
 
   @ExpoMethod
-  fun requestCameraRollPermissionsAsync(promise: Promise) {
-    Permissions.askForPermissionsWithPermissionsManager(mPermissions, promise, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+  fun requestMediaLibraryPermissionsAsync(writeOnly: Boolean, promise: Promise) {
+    Permissions.askForPermissionsWithPermissionsManager(mPermissions, promise, *getMediaLibraryPermissions(writeOnly))
   }
 
   @ExpoMethod
-  fun getCameraRollPermissionsAsync(promise: Promise) {
-    Permissions.getPermissionsWithPermissionsManager(mPermissions, promise, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+  fun getMediaLibraryPermissionsAsync(writeOnly: Boolean, promise: Promise) {
+    Permissions.getPermissionsWithPermissionsManager(mPermissions, promise, *getMediaLibraryPermissions(writeOnly))
   }
 
   @ExpoMethod
@@ -124,8 +125,8 @@ class ImagePickerModule(
     }
 
     val permissionsResponseHandler = PermissionsResponseListener { permissionsResponse: Map<String, PermissionsResponse> ->
-      if (permissionsResponse[Manifest.permission.WRITE_EXTERNAL_STORAGE]?.status == PermissionsStatus.GRANTED
-        && permissionsResponse[Manifest.permission.CAMERA]?.status == PermissionsStatus.GRANTED) {
+      if (permissionsResponse[Manifest.permission.WRITE_EXTERNAL_STORAGE]?.status == PermissionsStatus.GRANTED &&
+        permissionsResponse[Manifest.permission.CAMERA]?.status == PermissionsStatus.GRANTED) {
         launchCameraWithPermissionsGranted(promise, cameraIntent, pickerOptions)
       } else {
         promise.reject(SecurityException("User rejected permissions"))
@@ -159,6 +160,14 @@ class ImagePickerModule(
   //endregion
 
   //region helpers
+
+  private fun getMediaLibraryPermissions(writeOnly: Boolean): Array<String> {
+    return if (writeOnly) {
+      arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    } else {
+      arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+    }
+  }
 
   private fun launchCameraWithPermissionsGranted(promise: Promise, cameraIntent: Intent, pickerOptions: ImagePickerOptions) {
     val imageFile = createOutputFile(
@@ -274,7 +283,7 @@ class ImagePickerModule(
             pickerOptions.isExif,
             pickerOptions.videoMaxDuration
           )
-          //...but we need to remember to add it later.
+          // ...but we need to remember to add it later.
           PendingPromise(pickerResultStore, isBase64 = true)
         } else {
           PendingPromise(pickerResultStore)
@@ -309,12 +318,12 @@ class ImagePickerModule(
   }
 
   private fun shouldHandleOnActivityResult(activity: Activity, requestCode: Int): Boolean {
-    return experienceActivity != null
-      && mPromise != null
-      && mPickerOptions != null
+    return experienceActivity != null &&
+      mPromise != null &&
+      mPickerOptions != null &&
       // When we launched the crop tool and the android kills current activity, the references can be different.
       // So, we fallback to the requestCode in this case.
-      && (activity === experienceActivity || mWasDestroyed && requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+      (activity === experienceActivity || mWasDestroyed && requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
   }
 
   private fun handleOnActivityResult(promise: Promise, activity: Activity, requestCode: Int, resultCode: Int, intent: Intent?, pickerOptions: ImagePickerOptions) {

@@ -1,6 +1,6 @@
 {
   "name": "@aws-sdk/util-locate-window",
-  "version": "3.20.0",
+  "version": "3.22.0",
   "scripts": {
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:es": "tsc -p tsconfig.es.json",
@@ -30,8 +30,8 @@
   },
   "typesVersions": {
     "<4.0": {
-      "types/*": [
-        "types/ts3.4/*"
+      "dist/types/*": [
+        "dist/types/ts3.4/*"
       ]
     }
   },
