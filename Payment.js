@@ -3,6 +3,8 @@ import { StyleSheet, View, Text, TextInput, TouchableHighlight, Image } from 're
 import { Dimensions } from "react-native"
 import Amplify from 'aws-amplify'
 import logo from '../assets/icon.png'
+import { hasHardwareAsync, isEnrolledAsync, supportedAuthenticationTypesAsync, authenticateAsync   } from 'expo-local-authentication'
+
 const { width: WIDTH} = Dimensions.get('window')
 Amplify.configure({
   API: {
@@ -48,6 +50,37 @@ export default class Payment extends React.Component {
       })
     }
   }
+//********************************************* */
+
+//Added Biometeric Auth Function//  
+ biometricsAuth = async () => {
+  const compatible = await hasHardwareAsync()
+  if (!compatible) throw 'This device is not compatible for biometric authentication'
+  
+  const enrolled = await isEnrolledAsync()
+  if (!enrolled) throw `This device doesn't have biometric authentication enabled`
+
+  const availableMethods = await supportedAuthenticationTypesAsync()
+  if(! availableMethods) throw 'Bleh'
+  else {
+     console.log(availableMethods)
+  }
+  
+  const result = await authenticateAsync()
+  if (!result.success) throw `${result.error} - Authentication unsuccessful`
+  else{
+    if (this.state.paymentAmount == '' || this.state.paymentAmount == '$0' || this.state.paymentAmount == '$0.00' || this.state.paymentAmount == null || this.state.paymentAmount == undefined) {
+      alert('Please Enter a Payment Amount')
+    }
+    else {
+      this.props.navigation.navigate('ConfirmationByBio', {
+        paymentAmount: this.state.paymentAmount
+      })
+    }
+  }
+  
+}
+
 
   render() {
     return (
@@ -64,9 +97,17 @@ export default class Payment extends React.Component {
           style={styles.input}
         />
         </View>
+        <View style={styles.inputBody}>
         <TouchableHighlight style={styles.appButtonContainer} onPress={this.detectLiveness}>
           <Text style={styles.appButtonText}>Proceed</Text>
         </TouchableHighlight>
+        </View>
+        <View>
+        <TouchableHighlight style={styles.appButtonContainer} onPress={this.biometricsAuth}>
+          <Text style={styles.appButtonText}>BioMetric</Text>
+        </TouchableHighlight>
+        </View>
+        
       </View>
     );
   }
@@ -78,6 +119,9 @@ const styles = StyleSheet.create({
     marginTop: 100,
     alignItems:'center'
   },
+  inputBody:{
+    padding:20
+  },  
   title: {
     fontSize: 20,
     color: "#000",
