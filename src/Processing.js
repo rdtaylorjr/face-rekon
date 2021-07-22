@@ -6,7 +6,7 @@ export default function Processing({ navigation, route }) {
   const { initPaymentSheet, confirmPaymentSheetPayment } = useStripe()
   const [paymentSheetEnabled, setPaymentSheetEnabled] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [paymentMethod, setPaymentMethod] = useState(route.params.paymentMethod)
+  // const [paymentMethod, setPaymentMethod] = useState(route.params.paymentMethod)
 
   const API_URL = "https://expo-stripe-server-example.glitch.me"
 
@@ -36,12 +36,9 @@ export default function Processing({ navigation, route }) {
 
       return publishableKey
     } 
-    catch (e) {
+    catch (error) {
       console.warn('Unable to fetch publishable key. Is your server running?')
-      Alert.alert(
-        'Error',
-        'Unable to fetch publishable key. Is your server running?'
-      )
+      Alert.alert('Error', 'Unable to fetch publishable key. Is your server running?')
       return null
     }
   }
@@ -50,40 +47,41 @@ export default function Processing({ navigation, route }) {
     setLoading(true)
 
     try {
-      const {
-        paymentIntent,
-        ephemeralKey,
-        customer,
-      } = await fetchPaymentSheetParams()
-
       const { error, paymentOption } = await initPaymentSheet({
-        customerId: customer,
-        customerEphemeralKeySecret: ephemeralKey,
-        paymentIntentClientSecret: paymentIntent,
+        customerId: route.params.customer,
+        customerEphemeralKeySecret: route.params.ephemeralKey,
+        paymentIntentClientSecret: route.params.paymentIntent,
         customFlow: true,
-        merchantDisplayName: 'Face-Rekon',
-        applePay: true,
+        merchantDisplayName: 'TCS',
         merchantCountryCode: 'US',
-        style: 'alwaysDark',
-        googlePay: true,
         testEnv: true
       })
 
+      // alert(
+      //   route.params.paymentIntent + "\n************\n" +
+      //   route.params.ephemeralKey + "\n************\n" +
+      //   route.params.customer + "\n************\n" +
+      //   JSON.stringify(paymentOption) + "\n************\n" +
+      //   JSON.stringify(route.params.paymentMethod)
+      // )
+      
       if (!error) {
         setPaymentSheetEnabled(true)
       }
-      if (paymentOption) {
-        setPaymentMethod(paymentOption)
-      }
-    } catch (error) {
-      console.log('error', error)
-    } finally {
+      // if (paymentOption) {
+      //   setPaymentMethod(paymentOption)
+      // }
+    } 
+    catch (error) {
+      Alert.alert('Error', error.message)
+    } 
+    finally {
       setLoading(false)
     }
   }
 
   const initializePublishableKey = async () =>  {
-    const publishableKey = await fetchPublishableKey(paymentMethod)
+    const publishableKey = await fetchPublishableKey(route.params.paymentMethod)
     if (publishableKey) {
       await initStripe({
         publishableKey,
@@ -99,23 +97,20 @@ export default function Processing({ navigation, route }) {
     setLoading(true)
     const { error } = await confirmPaymentSheetPayment()
 
-    if (!error) {
+    if (error) {
+      Alert.alert(error.message)
+      navigation.navigate('Confirmation', {
+        paymentMethod: route.params.paymentMethod,
+        type: 'declined'
+      })
+    }
+    else {
       setPaymentSheetEnabled(false)
-      // alert(
-      //   JSON.stringify(route.params.paymentAmount) + "\n" + 
-      //   JSON.stringify(route.params.paymentMethod)
-      // )
       navigation.navigate('Confirmation', {
         paymentAmount: route.params.paymentAmount,
         paymentMethod: route.params.paymentMethod,
         username: route.params.username,
         type: 'payment'
-      })
-    }
-    else {
-      navigation.navigate('Confirmation', {
-        paymentMethod: route.params.paymentMethod,
-        type: 'declined'
       })
     }
     setLoading(false)

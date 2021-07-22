@@ -14,10 +14,10 @@ import Payment from './src/Payment'
 const Stack = createStackNavigator()
 
 const headerStyles = {
-  headerTintColor: "#009688", 
-  headerTitleStyle: {
-    color: null
-  }
+  // headerTintColor: "#009688", 
+  // headerTitleStyle: {
+  //   color: null
+  // }
 }
 
 export default class App extends React.Component {

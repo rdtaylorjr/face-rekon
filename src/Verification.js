@@ -242,23 +242,27 @@ export default function Verification({ navigation, route }) {
         throw response.errorMessage
       }
       const parsed = JSON.parse(response.body)
-      if (JSON.stringify(parsed.FaceMatches.length) > 0) {
-        // navigation.navigate('Confirmation', {
-          alert(
-            JSON.stringify(route.params.paymentAmount) + "\n" + 
-            JSON.stringify(route.params.paymentMethod)
-          )
-        navigation.navigate('Processing', {
+
+      if (JSON.stringify(parsed.FaceMatches.length) == 0) {
+        navigation.navigate('Confirmation', {
+          type: 'failed'
+        })
+      }
+      else if (route.params.error) {
+        navigation.navigate('Confirmation', {
+          paymentAmount: route.params.paymentAmount,
+          paymentMethod: route.params.paymentMethod,
+          error: route.params.error,
+          username: parsed.FaceMatches[0].Face.ExternalImageId,
+          type: 'declined'
+        })
+      }
+      else {
+        navigation.navigate('Confirmation', {
           paymentAmount: route.params.paymentAmount,
           paymentMethod: route.params.paymentMethod,
           username: parsed.FaceMatches[0].Face.ExternalImageId,
           type: 'payment'
-        })
-        // setDisplay(true)
-      }
-      else {
-        navigation.navigate('Confirmation', {
-          type: 'failed'
         })
       }
     }).catch(error => {
@@ -275,7 +279,8 @@ export default function Verification({ navigation, route }) {
     else {
       navigation.navigate('Verification', {
         paymentAmount: route.params.paymentAmount,
-        paymentMethod: route.params.paymentMethod
+        paymentMethod: route.params.paymentMethod,
+        error: route.params.error
       })
     }
   }
@@ -393,7 +398,7 @@ const styles = StyleSheet.create({
   processing: {
     fontSize: 24,
     textAlign: "center",
-    fontWeight: "bold",
+    // fontWeight: "bold",
     position: "absolute",
     top: 25
   }

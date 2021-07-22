@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, Alert, Image, Keyboard, StyleSheet, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native'
 import { initStripe, useStripe } from '@stripe/stripe-react-native'
-import Verification from './Verification'
 import logo from '../assets/icon.png'
 
 export default function Payment({ navigation, route }) {
@@ -10,9 +9,7 @@ export default function Payment({ navigation, route }) {
   const [loading, setLoading] = useState(false)
   const [paymentMethod, setPaymentMethod] = useState(null)
   const [paymentAmount, setPaymentAmount] = useState('')
-  const [verification, setVerification] = useState(false)
 
-  // const API_URL = "https://face-rekon.glitch.me"
   const API_URL = "https://expo-stripe-server-example.glitch.me"
 
   const fetchPaymentSheetParams = async () => {
@@ -66,11 +63,8 @@ export default function Payment({ navigation, route }) {
         customerEphemeralKeySecret: ephemeralKey,
         paymentIntentClientSecret: paymentIntent,
         customFlow: true,
-        merchantDisplayName: 'Face-Rekon',
-        applePay: true,
+        merchantDisplayName: 'TCS',
         merchantCountryCode: 'US',
-        style: 'alwaysDark',
-        googlePay: true,
         testEnv: true
       })
 
@@ -130,7 +124,6 @@ export default function Payment({ navigation, route }) {
         const currency = '$' + (input / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         setPaymentAmount(currency)
       }
-      // alert("paymentAmount: " + paymentAmount + "\ninput: " + input)
     }, [])
 
   const proceed = async () => {
@@ -141,21 +134,23 @@ export default function Payment({ navigation, route }) {
       alert('Please Enter a Payment Method')
     }
     else {
-    //   setLoading(true)
-    //   const { error } = await confirmPaymentSheetPayment()
+      setLoading(true)
+      const { error } = await confirmPaymentSheetPayment()
+      let params = {
+        paymentAmount: paymentAmount,
+        paymentMethod: paymentMethod,
+        error: null
+      }
 
-    //   if (error) {
-    //     Alert.alert(`Error`, error.message)
-    //   } 
-    //   else {
-    //     setPaymentSheetEnabled(false)
-        navigation.navigate('Verification', {
-          paymentAmount: paymentAmount,
-          paymentMethod: paymentMethod
-        })
-        // setVerification(true)
-    //   }
-    //   setLoading(false)
+      if (error) {
+        params.error = error.message
+        // Alert.alert('Error', params.error)
+      } 
+      
+      // setPaymentSheetEnabled(false)
+      navigation.navigate('Verification', params)
+
+      setLoading(false)
     }
   }
 
@@ -166,64 +161,66 @@ export default function Payment({ navigation, route }) {
 
   return (
     <View>
-      { !verification ?
-        (<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-          <View style={styles.container}>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
 
-            <Image source={logo} style={styles.logo} />
-            <Text style={styles.title}>Enter Payment Details</Text>
+          <Image source={logo} style={styles.logo} />
+          <Text style={styles.title}>Enter Payment Details</Text>
 
-            <TextInput
-              placeholder="$0.00"
-              placeholderTextColor={'white'}
-              onChangeText={validateInput}
-              value={paymentAmount}
-              underlineColorAndroid="transparent"
-              keyboardType="numeric"
-              style={styles.input}
-            />
+          <TextInput
+            placeholder="$0.00"
+            placeholderTextColor={'white'}
+            onChangeText={validateInput}
+            value={paymentAmount}
+            underlineColorAndroid="transparent"
+            keyboardType="numeric"
+            style={styles.input}
+          />
 
-            <TouchableHighlight
+          <TouchableHighlight
+            style={styles.input} 
               style={styles.input} 
+            style={styles.input} 
+            underlayColor="grey" 
               underlayColor="grey" 
-              loading={loading}
-              disabled={!paymentSheetEnabled}
-              onPress={choosePaymentOption}
-            >
-              <View>
-                {loading && 
-                  <ActivityIndicator color="white" size="small" />
-                }
-                {!loading && paymentMethod && 
-                  <View style={styles.row}>
-                    <Image
-                      style={styles.image}
-                      source={{uri: `data:image/png;base64,${paymentMethod.image}`}}
-                    />
-                    <Text style={styles.inputText}>{paymentMethod.label}</Text>
-                  </View>
-                }
-                {!loading && !paymentMethod &&
-                  <Text style={styles.inputText}>Payment Method</Text>
-                }
-              </View>
-            </TouchableHighlight>
+            underlayColor="grey" 
+            loading={loading}
+            disabled={!paymentSheetEnabled}
+            onPress={choosePaymentOption}
+          >
+            <View>
+              {loading && 
+                <ActivityIndicator color="white" size="small" />
+              }
+              {!loading && paymentMethod && 
+                <View style={styles.row}>
+                  <Image
+                    style={styles.image}
+                    source={{uri: `data:image/png;base64,${paymentMethod.image}`}}
+                  />
+                  <Text style={styles.inputText}>{paymentMethod.label}</Text>
+                </View>
+              }
+              {!loading && !paymentMethod &&
+                <Text style={styles.inputText}>Payment Method</Text>
+              }
+            </View>
+          </TouchableHighlight>
 
-            <TouchableHighlight
-              style={[styles.button, (!paymentSheetEnabled) && styles.disabled]} 
+          <TouchableHighlight
+            style={[styles.button, (!paymentSheetEnabled) && styles.disabled]} 
+            underlayColor="grey" 
               underlayColor="grey" 
-              loading={loading}
-              disabled={!paymentSheetEnabled}
-              onPress={proceed}
-            >
-              <Text style={styles.buttonText}>Proceed</Text>
-            </TouchableHighlight>
+            underlayColor="grey" 
+            loading={loading}
+            disabled={!paymentSheetEnabled}
+            onPress={proceed}
+          >
+            <Text style={styles.buttonText}>Proceed</Text>
+          </TouchableHighlight>
 
-          </View>
-        </TouchableWithoutFeedback>
-        ) :
-        <Verification setDisplay={setVerification} />
-      }
+        </View>
+      </TouchableWithoutFeedback>
     </View>
   )
 }

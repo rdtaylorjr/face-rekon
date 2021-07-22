@@ -29,12 +29,12 @@ export default class Confirmation extends React.Component {
                 style={styles.image}
                 source={{uri: `data:image/png;base64,${route.params.paymentMethod.image}`}}
               />
-              <Text style={styles.small}>{route.params.paymentMethod.label}</Text>
+              <Text style={styles.message}>{route.params.paymentMethod.label}</Text>
             </View>
-            <Text style={styles.small}>
+            <Text style={styles.message}>
               Verified user: {route.params.username}
             </Text>
-            <Text style={styles.small}>
+            <Text style={styles.message}>
               Thank you for using Face-Rekon!
             </Text>
           </View>
@@ -45,7 +45,7 @@ export default class Confirmation extends React.Component {
             <Text style={styles.title}>
               Registration Successful
             </Text>
-            <Text style={styles.small}>
+            <Text style={styles.message}>
               Registered user: {route.params.username}
             </Text>
           </View>
@@ -56,7 +56,7 @@ export default class Confirmation extends React.Component {
             <Text style={styles.title}>
               Payment Failed
             </Text>
-            <Text style={styles.small}>
+            <Text style={styles.message}>
               Could not verify user. Please try again.
             </Text>
           </View>
@@ -73,12 +73,12 @@ export default class Confirmation extends React.Component {
                 style={styles.image}
                 source={{uri: `data:image/png;base64,${route.params.paymentMethod.image}`}}
               />
-              <Text style={styles.small}>{route.params.paymentMethod.label}</Text>
+              <Text style={styles.message}>{route.params.paymentMethod.label}</Text>
             </View>
-            <Text style={styles.small}>
-              Could not process payment.
+            <Text style={styles.message}>
+              {route.params.error}.
             </Text>
-            <Text style={styles.small}>
+            <Text style={styles.message}>
               Please try again.
             </Text>
           </View>
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10
   },
-  small: {
+  message: {
     color: "grey",
     textAlign: "center"
   },
