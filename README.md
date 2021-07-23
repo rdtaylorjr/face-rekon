@@ -2,11 +2,40 @@
 
 Facial Recognition for Mobile Payments
 
-A cross-platform iOS and Android app with liveness detection and facial recognition. Written using React Native and AWS Rekognition
+A cross-platform iOS and Android app for accepting Stripe payments with liveness detection and facial recognition. Written for TCS Paceport Retail Applications using React Native, Expo, Stripe, and AWS Rekognition
 
+## Instructions for Installing and Running the App
+
+1. Clone the face-rekon repository to your local machine
+2. Install the Expo command line interface by typing `npm install -g expo-cli` in the terminal
+3. Download and install Expo Go from the app store on your mobile phone
+4. Navigate in your terminal to the folder where you cloned the repository
+5. Run the command `expo start`
+6. Your browser will open and display a QR code. Scan the code with your mobile phone
+7. Face-Rekon will run inside Expo Go on your mobile phone
+
+## Instructions for Using the App
+
+#### Registering Faces
+1. From the Home screen click 'Register Face' to register your face to make a new payment
+2. Enter the administrator username 'Admin' and password 'Admin123'
+3. Enter a username for the face you want to register. Usernames must not contain spaces or special characters.
+4. The following screen will capture your image automatically once your face is fully contained within the circle.
+5. A Confirmation screen will appear confirming that your face was registered successfully.
+
+#### Making Payments
+1. From the Home screen click 'Make Payment' to pake a new payment
+2. Enter a payment amount in US Dollars. Foreign currencies will be supported in future versions.
+3. Tap 'Payment Method' to select a new payment method. Credit or debit cards are currently accepted. Additional payment methods will be available in future versions. 
+4. Tap 'Proceed'
+5. Select whether to validate your payment using 'Face Recognition' or your device's built-in 'Touch ID'. Facial recognition does not require any additonal biometric sensors.
+6. If you selected 'Touch ID', use your fingerprint scanner to validate your identity.
+7. If you selected 'Face Recognition' the following screen will guide you through a series of steps for liveness detection. Make sure your face is fully visible within the circle and follow the instructions.
+8. Once validated, a Confirmation Screen will appear confirming that your face was registered successfully.
+
+## Design Document
 ## Retail Lab POC Project
 Use Case 1: Face-based Identification for Payments\
-Design Document
 
 ## App Name:
 FacePayment

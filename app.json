@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "FacePayment",
-    "slug": "FacePayment",
+    "name": "face-rekon",
+    "slug": "face-rekon",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,9 +17,13 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.tcs.facerekon",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.tcs.facerekon",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -27,6 +31,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "A cross-platform iOS and Android app with liveness detection and facial recognition. Written using React Native and AWS Rekognition",
+    "githubUrl": "https://github.com/rdtaylorjr/face-rekon.git"
   }
 }
