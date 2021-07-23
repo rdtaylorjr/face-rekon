@@ -11,18 +11,18 @@ export default class Home extends React.Component {
         <Text style={styles.title}>
           Face-Rekon
         </Text>
-        <TouchableHighlight 
-          style={[styles.button, styles.green]} 
-          underlayColor="grey" 
+        <TouchableHighlight
+          style={[styles.button, styles.green]}
+          underlayColor="grey"
           onPress={() => this.props.navigation.navigate('Payment')}
         >
           <Text style={styles.buttonText}>
             Make Payment
           </Text>
         </TouchableHighlight>
-        <TouchableHighlight 
-          style={[styles.button, styles.grey]} 
-          underlayColor="grey" 
+        <TouchableHighlight
+          style={[styles.button, styles.grey]}
+          underlayColor="grey"
           onPress={() => this.props.navigation.navigate('Login')}
         >
           <Text style={styles.buttonText}>
@@ -32,7 +32,7 @@ export default class Home extends React.Component {
       </View>
     )
   }
-  
+
 }
 
 const styles = StyleSheet.create({

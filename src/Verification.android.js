@@ -132,7 +132,7 @@ export default function Detection() {
           return prev + Math.abs(curr)
         }, 0)
         const avgAngle = rollAnglesSum / rollAnglesExceptCurrent.length
-        
+
         const diff = Math.abs(avgAngle - Math.abs(face.rollAngle))
 
         if (diff >= detections.NOD.minDiff) {
@@ -200,7 +200,7 @@ export default function Detection() {
     if (cameraRef) {
       let photo = await cameraRef.takePictureAsync({ base64: true })
       verifyFace(photo)
-    } 
+    }
     else {
       navigation.navigate('Verification', {
         paymentAmount: route.params.paymentAmount
@@ -215,7 +215,7 @@ export default function Detection() {
   }, [state.processComplete])
 
   if (hasPermission === false) {
-    return <Text style={{textAlign: "center", marginTop: 100}}>No access to camera</Text>
+    return <Text style={{ textAlign: "center", marginTop: 100 }}>No access to camera</Text>
   }
 
   return (

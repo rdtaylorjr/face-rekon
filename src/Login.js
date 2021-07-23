@@ -45,9 +45,9 @@ export default class Login extends React.Component {
             secureTextEntry
             onChangeText={password => this.setState({ password })}
           />
-          <TouchableHighlight 
-            style={styles.button} 
-            underlayColor="grey" 
+          <TouchableHighlight
+            style={styles.button}
+            underlayColor="grey"
             onPress={this.loginAuth}
           >
             <Text style={styles.buttonText}>Login</Text>

@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, Alert, Image, Keyboard, StyleSheet, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native'
 import { initStripe, useStripe } from '@stripe/stripe-react-native'
-import { hasHardwareAsync, isEnrolledAsync, supportedAuthenticationTypesAsync, authenticateAsync   } from 'expo-local-authentication'
 import logo from '../assets/icon.png'
 
 export default function Payment({ navigation }) {
@@ -38,7 +37,7 @@ export default function Payment({ navigation }) {
       const { publishableKey } = await response.json()
 
       return publishableKey
-    } 
+    }
     catch (e) {
       console.warn('Unable to fetch publishable key. Is your server running?')
       Alert.alert(
@@ -82,7 +81,7 @@ export default function Payment({ navigation }) {
     }
   }
 
-  const initializePublishableKey = async () =>  {
+  const initializePublishableKey = async () => {
     const publishableKey = await fetchPublishableKey(paymentMethod)
     if (publishableKey) {
       await initStripe({
@@ -95,7 +94,6 @@ export default function Payment({ navigation }) {
     }
   }
 
-
   const choosePaymentOption = async () => {
     const { error, paymentOption } = await presentPaymentSheet({
       confirmPayment: false
@@ -103,13 +101,13 @@ export default function Payment({ navigation }) {
 
     if (error) {
       console.log('error', error)
-    } 
+    }
     else if (paymentOption) {
       setPaymentMethod({
         label: paymentOption.label,
         image: paymentOption.image
       })
-    } 
+    }
     else {
       setPaymentMethod(null)
     }
@@ -145,10 +143,8 @@ export default function Payment({ navigation }) {
 
       if (error) {
         params.error = error.message
-        // Alert.alert('Error', params.error)
-      } 
-      
-      // setPaymentSheetEnabled(false)
+      }
+
       navigation.navigate('Biometric', params)
 
       setLoading(false)
@@ -179,21 +175,21 @@ export default function Payment({ navigation }) {
           />
 
           <TouchableHighlight
-            style={styles.input} 
-            underlayColor="grey" 
+            style={styles.input}
+            underlayColor="grey"
             loading={loading}
             disabled={!paymentSheetEnabled}
             onPress={choosePaymentOption}
           >
             <View>
-              {loading && 
+              {loading &&
                 <ActivityIndicator color="white" size="small" />
               }
-              {!loading && paymentMethod && 
+              {!loading && paymentMethod &&
                 <View style={styles.row}>
                   <Image
                     style={styles.image}
-                    source={{uri: `data:image/png;base64,${paymentMethod.image}`}}
+                    source={{ uri: `data:image/png;base64,${paymentMethod.image}` }}
                   />
                   <Text style={styles.inputText}>{paymentMethod.label}</Text>
                 </View>
@@ -205,8 +201,8 @@ export default function Payment({ navigation }) {
           </TouchableHighlight>
 
           <TouchableHighlight
-            style={[styles.button, (!paymentSheetEnabled) && styles.disabled]} 
-            underlayColor="grey" 
+            style={[styles.button, (!paymentSheetEnabled) && styles.disabled]}
+            underlayColor="grey"
             loading={loading}
             disabled={!paymentSheetEnabled}
             onPress={proceed}

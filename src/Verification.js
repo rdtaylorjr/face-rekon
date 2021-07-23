@@ -67,7 +67,7 @@ const detectionReducer = (state, action) => {
           faceDetected: action.payload,
           progressFill: 100 / (state.detectionsList.length + 1)
         }
-      } 
+      }
       else {
         return initialState
       }
@@ -133,14 +133,14 @@ export default function Verification({ navigation, route }) {
     const contains = ({ outside, inside }) => {
       const outsideMaxX = outside.minX + outside.width
       const insideMaxX = inside.minX + inside.width
-  
+
       const outsideMaxY = outside.minY + outside.height
       const insideMaxY = inside.minY + inside.height
-  
+
       if (inside.minX < outside.minX || insideMaxX > outsideMaxX || inside.minY < outside.minY || insideMaxY > outsideMaxY)
-          return false
+        return false
       else
-          return true
+        return true
     }
 
     const previewContainsFace = contains({
@@ -187,7 +187,7 @@ export default function Verification({ navigation, route }) {
         if (rollAngles.current.length > 10)
           rollAngles.current.shift()
 
-        if (rollAngles.current.length < 10) 
+        if (rollAngles.current.length < 10)
           return
 
         const rollAnglesExceptCurrent = [...rollAngles.current].splice(0, rollAngles.current.length - 1)
@@ -213,7 +213,7 @@ export default function Verification({ navigation, route }) {
         if (face.yawAngle >= detections.TURN_HEAD_RIGHT.minAngle)
           dispatch({ type: 'NEXT_DETECTION', payload: null })
         return
-        
+
       case 'SMILE':
         if (face.smilingProbability >= detections.SMILE.minProbability)
           dispatch({ type: 'NEXT_DETECTION', payload: null })
@@ -253,7 +253,6 @@ export default function Verification({ navigation, route }) {
           paymentAmount: route.params.paymentAmount,
           paymentMethod: route.params.paymentMethod,
           error: route.params.error,
-          username: parsed.FaceMatches[0].Face.ExternalImageId,
           type: 'declined'
         })
       }
@@ -275,7 +274,7 @@ export default function Verification({ navigation, route }) {
     if (cameraRef) {
       let photo = await cameraRef.takePictureAsync({ base64: true })
       verifyFace(photo)
-    } 
+    }
     else {
       navigation.navigate('Verification', {
         paymentAmount: route.params.paymentAmount,
@@ -292,7 +291,7 @@ export default function Verification({ navigation, route }) {
   }, [state.processComplete])
 
   if (hasPermission === false) {
-    return <Text style={{textAlign: "center", marginTop: 100}}>No access to camera</Text>
+    return <Text style={{ textAlign: "center", marginTop: 100 }}>No access to camera</Text>
   }
 
   return (
@@ -312,7 +311,7 @@ export default function Verification({ navigation, route }) {
             minDetectionInterval: 125,
             tracking: false
           }}
-          ref={ref => {setCameraRef(ref)}}
+          ref={ref => { setCameraRef(ref) }}
         >
           <AnimatedCircularProgress
             style={styles.circularProgress}
@@ -332,7 +331,7 @@ export default function Verification({ navigation, route }) {
               state.faceTooBig === "no" &&
               instructionsText.initialPrompt}
 
-            {state.faceTooBig === "yes" && 
+            {state.faceTooBig === "yes" &&
               instructionsText.tooClose}
 
             {state.faceDetected === "yes" &&

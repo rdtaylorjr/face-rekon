@@ -1,6 +1,6 @@
 import React from 'react'
 import { Alert, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
-import { hasHardwareAsync, isEnrolledAsync, supportedAuthenticationTypesAsync, authenticateAsync   } from 'expo-local-authentication'
+import { hasHardwareAsync, isEnrolledAsync, supportedAuthenticationTypesAsync, authenticateAsync } from 'expo-local-authentication'
 import logo from '../assets/icon.png'
 
 export default function Payment({ navigation, route }) {
@@ -23,7 +23,7 @@ export default function Payment({ navigation, route }) {
         error: route.params.error
       })
     }
-    
+
     const enrolled = await isEnrolledAsync()
     if (!enrolled) {
       Alert.alert('Error', 'This device doesn\'t have biometric authentication enabled')
@@ -43,10 +43,11 @@ export default function Payment({ navigation, route }) {
         error: route.params.error
       })
     }
+
     else {
-       console.log(availableMethods)
+      console.log(availableMethods)
     }
-    
+
     const result = await authenticateAsync()
     if (!result.success) {
       navigation.navigate('Confirmation', {
@@ -78,16 +79,16 @@ export default function Payment({ navigation, route }) {
       <Text style={styles.title}>Verification Method</Text>
 
       <TouchableHighlight
-        style={styles.button} 
-        underlayColor="grey" 
+        style={styles.button}
+        underlayColor="grey"
         onPress={verifyWithFace}
       >
         <Text style={styles.buttonText}>Face Recognition</Text>
       </TouchableHighlight>
 
       <TouchableHighlight
-        style={styles.button} 
-        underlayColor="grey" 
+        style={styles.button}
+        underlayColor="grey"
         onPress={verifyWithTouchID}
       >
         <Text style={styles.buttonText}>Touch ID</Text>

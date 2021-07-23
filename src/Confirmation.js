@@ -10,7 +10,7 @@ export default class Confirmation extends React.Component {
 
   render() {
     const { navigation, route } = this.props
-    return(
+    return (
       <View style={styles.container}>
         <Image source={logo} style={styles.logo} />
 
@@ -27,7 +27,7 @@ export default class Confirmation extends React.Component {
             <View style={styles.row}>
               <Image
                 style={styles.image}
-                source={{uri: `data:image/png;base64,${route.params.paymentMethod.image}`}}
+                source={{ uri: `data:image/png;base64,${route.params.paymentMethod.image}` }}
               />
               <Text style={styles.message}>{route.params.paymentMethod.label}</Text>
             </View>
@@ -71,7 +71,7 @@ export default class Confirmation extends React.Component {
             <View style={styles.row}>
               <Image
                 style={styles.image}
-                source={{uri: `data:image/png;base64,${route.params.paymentMethod.image}`}}
+                source={{ uri: `data:image/png;base64,${route.params.paymentMethod.image}` }}
               />
               <Text style={styles.message}>{route.params.paymentMethod.label}</Text>
             </View>
@@ -84,9 +84,9 @@ export default class Confirmation extends React.Component {
           </View>
         }
 
-        <TouchableHighlight 
-          style={styles.button} 
-          underlayColor="grey" 
+        <TouchableHighlight
+          style={styles.button}
+          underlayColor="grey"
           onPress={() => navigation.navigate('Home')}
         >
           <Text style={styles.buttonText}>
@@ -96,7 +96,7 @@ export default class Confirmation extends React.Component {
       </View>
     )
   }
-  
+
 }
 
 const styles = StyleSheet.create({

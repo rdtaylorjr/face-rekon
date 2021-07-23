@@ -44,7 +44,7 @@ const detectionReducer = (state, action) => {
     case 'FACE_DETECTED':
       if (action.payload === 'yes') {
         return { ...state, processComplete: true }
-      } 
+      }
       else {
         return initialState
       }
@@ -97,14 +97,14 @@ export default function Registration({ navigation, route }) {
     const contains = ({ outside, inside }) => {
       const outsideMaxX = outside.minX + outside.width
       const insideMaxX = inside.minX + inside.width
-  
+
       const outsideMaxY = outside.minY + outside.height
       const insideMaxY = inside.minY + inside.height
-  
+
       if (inside.minX < outside.minX || insideMaxX > outsideMaxX || inside.minY < outside.minY || insideMaxY > outsideMaxY)
-          return false
+        return false
       else
-          return true
+        return true
     }
 
     const previewContainsFace = contains({
@@ -171,7 +171,7 @@ export default function Registration({ navigation, route }) {
     if (cameraRef) {
       let photo = await cameraRef.takePictureAsync({ base64: true })
       registerFace(photo)
-    } 
+    }
     else {
       navigation.navigate('Registration', {
         paymentAmount: route.params.paymentAmount
@@ -186,7 +186,7 @@ export default function Registration({ navigation, route }) {
   }, [state.processComplete])
 
   if (hasPermission === false) {
-    return <Text style={{textAlign: "center", marginTop: 100}}>No access to camera</Text>
+    return <Text style={{ textAlign: "center", marginTop: 100 }}>No access to camera</Text>
   }
 
   return (
@@ -206,7 +206,7 @@ export default function Registration({ navigation, route }) {
             minDetectionInterval: 125,
             tracking: false
           }}
-          ref={ref => {setCameraRef(ref)}}
+          ref={ref => { setCameraRef(ref) }}
         >
           <AnimatedCircularProgress
             style={styles.circularProgress}

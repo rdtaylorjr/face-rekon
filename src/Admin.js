@@ -16,7 +16,7 @@ export default class Admin extends React.Component {
 
   validateInput = input => {
     input = input.replace(/\s+/g, '')
-    this.setState({username: input})
+    this.setState({ username: input })
   }
 
   captureImage = () => {
@@ -45,9 +45,9 @@ export default class Admin extends React.Component {
             underlineColorAndroid="transparent"
             style={styles.input}
           />
-          <TouchableHighlight 
-            style={styles.button} 
-            underlayColor="grey" 
+          <TouchableHighlight
+            style={styles.button}
+            underlayColor="grey"
             onPress={this.captureImage}
           >
             <Text style={styles.buttonText}>Proceed</Text>
