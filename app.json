@@ -32,7 +32,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "A cross-platform iOS and Android app with liveness detection and facial recognition. Written using React Native and AWS Rekognition",
+    "description": "A cross-platform iOS and Android app for accepting Stripe payments with liveness detection and facial recognition. Written for TCS Paceport Retail Applications using React Native, Expo, Stripe, and AWS Rekognition",
     "githubUrl": "https://github.com/rdtaylorjr/face-rekon.git"
   }
 }

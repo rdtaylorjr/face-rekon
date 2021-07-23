@@ -57,7 +57,10 @@ export default class Confirmation extends React.Component {
               Payment Failed
             </Text>
             <Text style={styles.message}>
-              Could not verify user. Please try again.
+              Could not verify user.
+            </Text>
+            <Text style={styles.message}>
+              Please register and try again.
             </Text>
           </View>
         }
@@ -125,13 +128,15 @@ const styles = StyleSheet.create({
   },
   message: {
     color: "grey",
-    textAlign: "center"
+    textAlign: "center",
+    marginTop: 2
   },
   row: {
     flexDirection: "row",
     alignItems: "center",
     textAlign: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    marginBottom: 4
   },
   image: {
     width: 26,
