@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, Alert, Image, Keyboard, StyleSheet, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native'
 import { initStripe, useStripe } from '@stripe/stripe-react-native'
+import { hasHardwareAsync, isEnrolledAsync, supportedAuthenticationTypesAsync, authenticateAsync   } from 'expo-local-authentication'
 import logo from '../assets/icon.png'
 
-export default function Payment({ navigation, route }) {
+export default function Payment({ navigation }) {
   const { initPaymentSheet, presentPaymentSheet, confirmPaymentSheetPayment } = useStripe()
   const [paymentSheetEnabled, setPaymentSheetEnabled] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -148,7 +149,7 @@ export default function Payment({ navigation, route }) {
       } 
       
       // setPaymentSheetEnabled(false)
-      navigation.navigate('Verification', params)
+      navigation.navigate('Biometric', params)
 
       setLoading(false)
     }
@@ -179,10 +180,6 @@ export default function Payment({ navigation, route }) {
 
           <TouchableHighlight
             style={styles.input} 
-              style={styles.input} 
-            style={styles.input} 
-            underlayColor="grey" 
-              underlayColor="grey" 
             underlayColor="grey" 
             loading={loading}
             disabled={!paymentSheetEnabled}
@@ -209,8 +206,6 @@ export default function Payment({ navigation, route }) {
 
           <TouchableHighlight
             style={[styles.button, (!paymentSheetEnabled) && styles.disabled]} 
-            underlayColor="grey" 
-              underlayColor="grey" 
             underlayColor="grey" 
             loading={loading}
             disabled={!paymentSheetEnabled}
